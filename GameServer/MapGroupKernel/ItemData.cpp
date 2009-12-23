@@ -22,7 +22,7 @@ CItemData::~CItemData()
 	if(m_pData)
 		m_pData->Release();
 
-	SAFE_RELEASE (m_pEudemonData);
+	S_REL (m_pEudemonData);
 }
 
 bool CItemData::Create(IRecord* pDefault, const ItemInfoStruct* pInfo, IRecord* pDefaultEudemonData, bool bInsert/*=true*/, OBJID idNew/*=ID_NONE*/)			// false: ²»´æÊý¾Ý¿â
@@ -501,11 +501,11 @@ bool CItemData::LoadEudemonData(OBJID idOwner, IDatabase* pDb)
 		m_pEudemonData = CEudemonData::CreateNew();
 		IF_NOT (m_pEudemonData && m_pEudemonData->Create(pRes))
 		{
-			SAFE_RELEASE (pRes);
+			S_REL (pRes);
 			return false;
 		}
 
-		SAFE_RELEASE (pRes);
+		S_REL (pRes);
 	}
 
 	return true;

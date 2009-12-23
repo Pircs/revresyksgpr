@@ -13,7 +13,7 @@ CTaskDetailData::CTaskDetailData()
 
 CTaskDetailData::~CTaskDetailData()
 {
-	SAFE_RELEASE (m_pData);
+	S_REL (m_pData);
 }
 
 bool CTaskDetailData::Create(IRecordset *pRes, IDatabase *pDb)

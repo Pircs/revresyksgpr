@@ -55,7 +55,7 @@ bool CEnemy::GetInfo(CEnemyInfoStruct* pInfo)
 	for(int i = 0; i < MAX_ENEMYSIZE && i< m_set.Size(); i++)
 	{
 		pInfo->setEnemy[i] = m_set[i].first;
-		SafeCopy(pInfo->setName[i], m_set[i].second, _MAX_NAMESIZE);
+		SafeCopy(pInfo->setName[i], m_set[i].second.c_str(), _MAX_NAMESIZE);
 	}
 	return true;
 }
@@ -147,7 +147,7 @@ LPCTSTR CEnemy::GetName(OBJID idEnemy)
 	while(pEnemy.Next())
 	{
 		if(pEnemy && pEnemy->first == idEnemy)
-			return pEnemy->second;
+			return pEnemy->second.c_str();
 	}
 	return NULL;
 }

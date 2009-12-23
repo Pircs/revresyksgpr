@@ -19,7 +19,7 @@ void CAuctionSystemItemData::CleanDataSet()
 	for (; it!=m_SystemData_set.end(); it++)
 	{
 		CGameAuctionSystemData* pData = *it;
-		SAFE_RELEASE (pData);
+		S_REL (pData);
 	}
 	m_SystemData_set.clear();
 }
@@ -162,7 +162,7 @@ bool CAuctionSystemItemData::DeleteRecord(int id)
 			if (!pData->DeleteRecord())
 				return false;
 			m_SystemData_set.erase(it);
-			SAFE_RELEASE (pData);
+			S_REL (pData);
 			return true;
 		}
 	}

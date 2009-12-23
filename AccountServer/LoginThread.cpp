@@ -4,11 +4,6 @@
 #include "AllHeads.h"
 #include "LoginThread.h"
 
-#ifdef _DEBUG
-#undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
-#define new DEBUG_NEW
-#endif
 
 #undef	LOCKTHREAD		// 登录线程不需要互斥★
 #define	LOCKTHREAD

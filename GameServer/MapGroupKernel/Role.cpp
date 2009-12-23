@@ -20,7 +20,7 @@ CRole::~CRole()
 {
 	// 由各个子类创建的，那么就由各个子类负责释放，这里只是重复检查避免出现内存泄漏
 	ASSERT(!m_setStatus);
-	SAFE_RELEASE (m_setStatus);
+	S_REL (m_setStatus);
 }
 
 bool CRole::IsInFan(POINT pos, POINT posSource, int nRange, int nWidth, POINT posCenter)

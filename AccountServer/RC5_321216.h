@@ -2,10 +2,6 @@
 // œ…Ω£–ﬁ£¨2002.3.1
 #pragma once
 
-#ifdef _DEBUG_X
-	#undef	ASSERT
-	#define	ASSERT(x)	{ if(!(x)) AfxMessageBox(#x); }
-#endif
 //////////////////////////
 
 #define	RC5_32			32

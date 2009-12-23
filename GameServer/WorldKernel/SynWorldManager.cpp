@@ -19,9 +19,9 @@ CSynWorldManager::CSynWorldManager()
 
 CSynWorldManager::~CSynWorldManager()
 {
-	SAFE_RELEASE (m_setSyn);
+	S_REL (m_setSyn);
 
-	SAFE_RELEASE (m_pDefault);
+	S_REL (m_pDefault);
 }
 
 bool CSynWorldManager::Create(IDatabase* pDb)

@@ -6,13 +6,6 @@
 #include "Msg.h"
 
 
-#ifdef _DEBUG
-#undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
-#define new DEBUG_NEW
-#endif
-
-
 CPointThread::CPointThread(u_short nPort, int nSndBuf /*= 0*/)
 			: CThreadBase(), m_cListenSocket(nPort, nSndBuf)
 {
@@ -35,6 +28,9 @@ CPointThread::~CPointThread()
 
 //#define	LOCK	{LOCKTHREAD;
 //#define	UNLOCK	}
+
+#undef	LOCKTHREAD		// i dont know how to use it
+#define	LOCKTHREAD
 
 // ★使用共享成员变量，必须先锁定。调用外部函数，必须先解锁。
 void	CPointThread::OnInit()

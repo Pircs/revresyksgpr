@@ -117,7 +117,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;NetWork;..\..\MapData;..\..\..\Shared\Common;..\..\..\Shared\NetMsg;..\..\GameBaseCode;..\..\AiModule"
+				AdditionalIncludeDirectories=".;NetWork;..\..\MapData;..\..\..\Shared\Common\Include;..\..\..\Shared\NetMsg;..\..\GameBaseCode;..\..\AiModule"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_DDNPC_"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

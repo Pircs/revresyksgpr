@@ -456,9 +456,9 @@ bool CWorldKernel::Release()
 	// TODO: 请在此添加代码
 	g_UserList.LogoutAllUser();
 
-	SAFE_RELEASE (m_pUserList);
-	SAFE_RELEASE (m_pMapList);
-	SAFE_RELEASE (m_pSynManager);
+	S_REL (m_pUserList);
+	S_REL (m_pMapList);
+	S_REL (m_pSynManager);
 
 	m_pMsgPort->Close();
 
@@ -466,10 +466,10 @@ bool CWorldKernel::Release()
 
 	m_sock.Close();
 
-	SAFE_RELEASE (m_setConnectClient);
-	SAFE_RELEASE (m_setConnectAccount);
+	S_REL (m_setConnectClient);
+	S_REL (m_setConnectAccount);
 
-	SAFE_RELEASE (m_pDb);
+	S_REL (m_pDb);
 	
 	delete this;
 	return true;		// return false : 无意义。

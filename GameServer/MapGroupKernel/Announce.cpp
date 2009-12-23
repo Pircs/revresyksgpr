@@ -15,7 +15,7 @@ CAnnounce::~CAnnounce()
 	for (; it!=m_setData.end(); it++)
 	{
 		CAnnounceData* pData = *it;
-		SAFE_RELEASE (pData);
+		S_REL (pData);
 	}
 	m_setData.clear();
 }
@@ -38,11 +38,11 @@ bool CAnnounce::Create(IDatabase* pDb,OBJID id)
 		}
 		else
 		{
-			SAFE_RELEASE (pData);
-			SAFE_RELEASE (pRes);
+			S_REL (pData);
+			S_REL (pRes);
 			return false;
 		}
-		SAFE_RELEASE (pRes);
+		S_REL (pRes);
 	}
     DEBUG_CATCH("CAnnounce::Create(IDatabase* pDb,OBJID id)");
 	return true;
@@ -65,14 +65,14 @@ bool CAnnounce::Create(IDatabase* pDb)
 			}
 			else
 			{
-				SAFE_RELEASE (pData);
-				SAFE_RELEASE (pRes);
+				S_REL (pData);
+				S_REL (pRes);
 				return false;
 			}
 
 			pRes->MoveNext();
 		}
-		SAFE_RELEASE (pRes);
+		S_REL (pRes);
 	}
 
 	return true;
@@ -87,7 +87,7 @@ bool	CAnnounce::CreateNewAnnounce(const ST_ANNOUNCE_DATA* pInfo, IDatabase* pDb)
 			m_setData.push_back(pData);
 			return true;
 		}
-		SAFE_RELEASE (pData);
+		S_REL (pData);
 	}
 	return false;
 }
@@ -102,7 +102,7 @@ bool	CAnnounce::DeleteAnnounceByObjID(OBJID idAnnounce)
 			if (!pData->DeleteRecord())
 				return false;
 			m_setData.erase(it);
-			SAFE_RELEASE (pData);
+			S_REL (pData);
 			return true;
 		}
 	}
@@ -120,7 +120,7 @@ bool    CAnnounce::DeleteAnnounceByUserID(OBJID id,bool isDelete)
 				if (!pData->DeleteRecord())
 					return false;
 			m_setData.erase(it);
-			SAFE_RELEASE (pData);
+			S_REL (pData);
 			return true;
 		}
 	}

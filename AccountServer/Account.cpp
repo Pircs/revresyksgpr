@@ -1,8 +1,7 @@
 // ÐÞ¸Ä£ºÏÉ½£ÐÞ£¬2001.12.12
-#include "StdAfx.h"
 #include <stdio.h>
 #include <assert.h>
-//#include <windows.h>
+#include <windows.h>
 
 //#include "basefunc.h"
 #include "Account.h"

@@ -34,7 +34,7 @@ void CTerrainObjPart::Destroy()
 		CLayer* pLayer = m_setLayer[i];
 		if(pLayer)
 		{
-			SAFE_DELETE(pLayer);
+			S_DEL(pLayer);
 		}
 	}
 	m_setLayer.clear();
@@ -86,7 +86,7 @@ CTerrainObjPart* CTerrainObjPart::CreateNew(FILE* fp)
 			CLayer* pLayer = CLayer::CreateNew();
 			if(!pLayer)
 			{
-				SAFE_DELETE(ptr);
+				S_DEL(ptr);
 				return NULL;
 			}
 

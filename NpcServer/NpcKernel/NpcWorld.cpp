@@ -34,13 +34,13 @@ CNpcWorld::CNpcWorld()
 CNpcWorld::~CNpcWorld()
 {
 	if(m_pSynManager)
-		SAFE_DELETE(m_pSynManager);
+		S_DEL(m_pSynManager);
 	if(m_pNpcManager)
-		SAFE_DELETE(m_pNpcManager);
+		S_DEL(m_pNpcManager);
 	if(m_pUserManager)
-		SAFE_DELETE(m_pUserManager);
+		S_DEL(m_pUserManager);
 	if(m_pMapManager)
-		SAFE_DELETE(m_pMapManager);
+		S_DEL(m_pMapManager);
 
 	if(m_pDatabase)
 		m_pDatabase->Release();
@@ -173,7 +173,7 @@ void CNpcWorld::ProcessMsg(OBJID idPacket, const char* pbufMsg, int nSize, OBJID
 //			CNetMsg::DumpMsg(pMsg);
 			LOGCATCH("CGameSocket::ProcessMsg()! MsgType:%d, NpcID:%u", idPacket, idNpc);
 		}
-		//SAFE_DELETE(pMsg);
+		//S_DEL(pMsg);
 	}
 
 	return;

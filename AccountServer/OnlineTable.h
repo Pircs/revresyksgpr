@@ -3,6 +3,9 @@
 #include "T_Index.h"
 #include "string"
 
+#undef	LOCKTHREAD		// i dont know how to use it
+#define	LOCKTHREAD
+
 using namespace std;
 
 enum { c_typeNone = 0, c_typePoint, c_typeTime, c_typeNetBarPoint, c_typeNetBarTime, c_typeISP, c_typeFree, c_typeAll };
@@ -126,7 +129,7 @@ protected:
 	int					m_nCount;
 	CIndex<string, int, 0>	m_aPlayerCount;
 	SERIAL_INDEX	m_aSerialCount;
-	CCriticalSection	m_xCtrl;
+	//CCriticalSection	m_xCtrl;
 private:
 	int		FindIndex(const char * szLoginName);		// return 0: ERROR
 	int		FindIndex(OBJID idAccount);					// return 0: ERROR

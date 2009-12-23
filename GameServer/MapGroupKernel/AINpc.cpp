@@ -93,7 +93,7 @@ CMonster::~CMonster()
 	if (m_pMagic)
 		m_pMagic->ReleaseByOwner();
 	
-	SAFE_RELEASE (m_setStatus);
+	S_REL (m_setStatus);
 }
 
 bool CMonster::Create(PROCESS_ID idProcess, IRecordset* pRes)
@@ -271,7 +271,7 @@ bool CMonster::Create(PROCESS_ID idProcess, CNpcType* pType, const ST_CREATENEWN
 		}
 		else
 		{
-			SAFE_RELEASE(m_pData);
+			S_REL(m_pData);
 		}
 	}
 	return false;

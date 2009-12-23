@@ -23,7 +23,7 @@ CUserPackage::~CUserPackage()
 	for (int i=0; i<_MAX_PACK_TYPE; i++)
 	{
 		if (m_setItem[i])
-			SAFE_RELEASE (m_setItem[i]);
+			S_REL (m_setItem[i]);
 	}
 }
 

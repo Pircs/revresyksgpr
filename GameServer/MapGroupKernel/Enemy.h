@@ -36,7 +36,7 @@ public: // persistent
 	bool	AppendInfo(const CEnemyInfoStruct* pInfo);
 
 public:
-	typedef	Array<pair<OBJID, String> >	ENEMY_SET;
+	typedef	Array<pair<OBJID, std::string> >	ENEMY_SET;
 protected:
 	ENEMY_SET	m_set;
 	CUser*		m_pOwner;

@@ -13,7 +13,7 @@ CAnnounceData::CAnnounceData(): m_pData(NULL)
 
 CAnnounceData::~CAnnounceData()
 {
-	SAFE_RELEASE (m_pData);
+	S_REL (m_pData);
 }
 
 bool CAnnounceData::Create(OBJID idAnnounce, IDatabase* pDb)

@@ -490,7 +490,7 @@ void CMsgServerDlg::OnTimer(UINT nIDEvent)
 						PrintText("Close socket OK¡£");
 					else
 						PrintText("Close socket failed!");
-					SAFE_DELETE(m_pSocketThread);
+					S_DEL(m_pSocketThread);
 					Process();
 				}
 				for(int i = 0; i < m_setMapGroupThread.size(); i++)
@@ -501,7 +501,7 @@ void CMsgServerDlg::OnTimer(UINT nIDEvent)
 					else
 						sprintf(szText, "Close map group thread[%d] failed!", i);
 					PrintText(szText);
-					SAFE_DELETE(m_setMapGroupThread[i]);
+					S_DEL(m_setMapGroupThread[i]);
 					Process();
 				}
 				if(m_pWorldThread)
@@ -510,7 +510,7 @@ void CMsgServerDlg::OnTimer(UINT nIDEvent)
 						PrintText("Close world thread OK¡£");
 					else
 						PrintText("Close world thread failed!");
-					SAFE_DELETE(m_pWorldThread);
+					S_DEL(m_pWorldThread);
 					Process();
 				}
 
@@ -531,7 +531,7 @@ void CMsgServerDlg::OnTimer(UINT nIDEvent)
 
 				if(m_pInterPort)
 				{
-					SAFE_DELETE(m_pInterPort);
+					S_DEL(m_pInterPort);
 				}
 
 				m_nState	= SHELLSTATE_END;

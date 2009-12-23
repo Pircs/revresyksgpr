@@ -24,7 +24,7 @@ CMapTrap::~CMapTrap()
 	if (m_pBattleSystem)
 		delete m_pBattleSystem;
 
-	SAFE_RELEASE (m_setStatus);
+	S_REL (m_setStatus);
 
 	if(m_pMap)
 	{

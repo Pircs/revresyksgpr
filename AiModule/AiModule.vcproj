@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".,source,..\..\Shared\Common,..\GameBaseCode"
+				AdditionalIncludeDirectories=".;source;..\..\Shared\Common\Include;..\GameBaseCode"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LOCAL_DEBUG;PALED_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

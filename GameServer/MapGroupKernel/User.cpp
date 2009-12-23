@@ -354,7 +354,7 @@ CUser::~CUser()
 	if (m_pSyn)
 		m_pSyn->ReleaseByOwner();
 
-	SAFE_RELEASE (m_setStatus);
+	S_REL (m_setStatus);
 	
 	if (m_pTeam)
 		m_pTeam->ReleaseByOwner();
@@ -1138,7 +1138,7 @@ void CUser::SetLife(int nLife, BOOL bUpdate)
 		}
 		else
 		{
-			SAFE_RELEASE(m_pTransformation);
+			S_REL(m_pTransformation);
 			SynchroTransform();
 		}
 	}
@@ -1725,7 +1725,7 @@ void CUser::IncLev(int nLev)
 				}
 			}
 		}
-		SAFE_RELEASE (pExpData);
+		S_REL (pExpData);
 	}
 }
 
@@ -4850,7 +4850,7 @@ void CUser::DeleteAllFriend()
 {
 	for(int i = 0; i < m_setFriend.size(); i++)
 	{
-		SAFE_DELETE(m_setFriend[i]);
+		S_DEL(m_setFriend[i]);
 	}
 	m_setFriend.clear();
 }
@@ -6722,7 +6722,7 @@ bool CUser::Transform(DWORD dwType, int nKeepSecs, bool bSynchro/*=true*/)
 }
 
 void CUser::AbortTransform()
-				{ SAFE_RELEASE(m_pTransformation); SynchroTransform(); }
+				{ S_REL(m_pTransformation); SynchroTransform(); }
 
 bool CUser::SynchroTransform()
 {
@@ -7595,7 +7595,7 @@ void CUser::CallBackEudemon(OBJID idItem, bool bNow)
 					BroadcastRoomMsg(&msg, INCLUDE_SELF);
 
 				ptEudemon->pEudemon->DelMonster(bNow);
-				SAFE_DELETE (ptEudemon);
+				S_DEL (ptEudemon);
 				break;
 			}
 		}
@@ -7639,7 +7639,7 @@ void CUser::CallBackAllEudemon(bool bNow/*=true*/)
 					BroadcastRoomMsg(&msg, INCLUDE_SELF);
 				
 				ptEudemon->pEudemon->DelMonster(bNow);
-				SAFE_DELETE (ptEudemon);
+				S_DEL (ptEudemon);
 			}
 		}
 	}
@@ -8089,7 +8089,7 @@ bool CUser::AddTutor(OBJID idTutor, LPCTSTR szName)
 			return true;
 		}
 		else
-			SAFE_DELETE (m_pTutor);
+			S_DEL (m_pTutor);
 	}
 	return false;
 }
@@ -8103,7 +8103,7 @@ bool CUser::DelTutor()
 
 	OBJID idTutor = m_pTutor->GetTutorID();
 	m_pTutor->DeleteRecord(Database());
-	SAFE_DELETE (m_pTutor);
+	S_DEL (m_pTutor);
 
 	if (this->GetLev() >= LEAVETUTOR_LEVEL)
 	{
@@ -8147,7 +8147,7 @@ bool CUser::DelTutorRef()
 	SendSysMsg(STR_LEAVE_TEACHER4, m_pTutor->GetTutorName());
 
 	OBJID idTutor = m_pTutor->GetTutorID();
-	SAFE_DELETE (m_pTutor);
+	S_DEL (m_pTutor);
 
 	CMsgSchoolMember	msg;
 	if (msg.Create(MESSAGEBOARD_DELMEMBER, NULL, 0))
@@ -8234,7 +8234,7 @@ bool CUser::DelStudent(OBJID idStudent)
 
 			OBJID idStudent = pTutor->GetUserID();
 			pTutor->DeleteRecord(Database());
-			SAFE_DELETE (pTutor);
+			S_DEL (pTutor);
 			m_setStudent.erase(it);
 
 			// 开除学员要扣导师经验作为惩罚
@@ -8270,7 +8270,7 @@ bool CUser::DelStudentRef(OBJID idStudent)
 		if (pTutor->GetUserID() == idStudent && pTutor->GetTutorID() == GetID())
 		{
 			this->SendSysMsg(STR_LEAVE_TEACHER3, pTutor->GetUserName());
-			SAFE_DELETE (pTutor);
+			S_DEL (pTutor);
 			m_setStudent.erase(it);
 
 			CMsgSchoolMember	msg;
@@ -8298,9 +8298,9 @@ bool CUser::CreateAllTutor(IDatabase* pDb)
 		if(m_pTutor)
 		{
 			if(!m_pTutor->Create(pRes))
-				SAFE_DELETE (m_pTutor);
+				S_DEL (m_pTutor);
 		}
-		SAFE_RELEASE (pRes);
+		S_REL (pRes);
 	}
 
 	// create student
@@ -8316,11 +8316,11 @@ bool CUser::CreateAllTutor(IDatabase* pDb)
 				if(pTutor->Create(pRes))
 					m_setStudent.push_back(pTutor);
 				else
-					SAFE_DELETE (pTutor);
+					S_DEL (pTutor);
 			}
 			pRes->MoveNext();
 		}
-		SAFE_RELEASE (pRes);
+		S_REL (pRes);
 	}
 	return true;
 
@@ -8328,13 +8328,13 @@ bool CUser::CreateAllTutor(IDatabase* pDb)
 
 void CUser::DeleteAllTutor()
 {
-	SAFE_DELETE (m_pTutor);
+	S_DEL (m_pTutor);
 
 	TUTOR_SET::iterator it = m_setStudent.begin();
 	for (; it != m_setStudent.end(); it++)
 	{
 		CTutor* pTutor = *it;
-		SAFE_DELETE (pTutor);
+		S_DEL (pTutor);
 	}
 	m_setStudent.clear();
 }
@@ -8425,7 +8425,7 @@ bool CUser::TakeExpFromStudent(int nExpTake)
 			Database()->ExecuteSQL(szSQL);
 		}
 	}
-	SAFE_RELEASE (pExpData);
+	S_REL (pExpData);
 	return true;
 }
 

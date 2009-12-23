@@ -50,14 +50,14 @@ bool CSynAttr::Create()
 	// 是否加入了帮派
 	if(!m_pData->Create(m_pUser->GetID(), Database()))
 	{
-		SAFE_RELEASE (m_pData);			// 未加入帮派时，m_pData为NULL
+		S_REL (m_pData);			// 未加入帮派时，m_pData为NULL
 		return true;
 	}
 
 	// 是否帮派删除了
 	if(SynManager()->QuerySyndicate(GetSynID()) == NULL)
 	{
-		SAFE_RELEASE (m_pData);			// 未加入帮派时，m_pData为NULL
+		S_REL (m_pData);			// 未加入帮派时，m_pData为NULL
 		return true;
 	}
 

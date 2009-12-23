@@ -21,7 +21,8 @@
 			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
-			UseOfMFC="1"
+			UseOfMFC="0"
+			UseOfATL="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
 			>
@@ -49,10 +50,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Shared\Common;..\..\Shared\NetMsg;..\GameBaseCode;..\GameBaseCode\source"
+				AdditionalIncludeDirectories="..\..\Shared\Common\Include;..\..\Shared\NetMsg;..\GameBaseCode;..\GameBaseCode\source"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -75,13 +76,15 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib Winmm.lib libmysql.lib"
-				OutputFile="$(SolutionDir)..\bin\Server\AccountServer\$(ProjectName)_$(ConfigurationName).exe"
+				AdditionalDependencies="commond.lib ws2_32.lib Winmm.lib libmysql.lib"
+				OutputFile="$(SolutionDir)..\rpgsky\bin\Server\AccountServer\$(ProjectName)_$(ConfigurationName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="..\..\Shared\lib"
+				IgnoreDefaultLibraryNames="LIBCMTD.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(TargetName).pdb"
-				SubSystem="2"
+				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -232,26 +235,6 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="AccountServer.rc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
@@ -411,28 +394,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="StdAfx.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="typedef.cpp"
 				>
 				<FileConfiguration
@@ -459,14 +420,6 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="AccountServer.h"
-				>
-			</File>
-			<File
-				RelativePath="AccountServerDlg.h"
-				>
-			</File>
 			<File
 				RelativePath="AllHeads.h"
 				>
@@ -500,10 +453,6 @@
 				>
 			</File>
 			<File
-				RelativePath="Resource.h"
-				>
-			</File>
-			<File
 				RelativePath="ServerSocket.h"
 				>
 			</File>
@@ -512,24 +461,7 @@
 				>
 			</File>
 			<File
-				RelativePath="StdAfx.h"
-				>
-			</File>
-			<File
 				RelativePath="T_Index.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
-			<File
-				RelativePath="res\AccountServer.ico"
-				>
-			</File>
-			<File
-				RelativePath="res\AccountServer.rc2"
 				>
 			</File>
 		</Filter>
@@ -569,5 +501,9 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="AccountServer.rc"
+		/>
 	</Globals>
 </VisualStudioProject>

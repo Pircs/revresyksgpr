@@ -331,7 +331,7 @@ void CMapData::ClearNodeSet()
 	for(int i = 0; i < nAmount; i++)
 	{
 		NodeInfo* pNod = m_setNode[i];
-		SAFE_DELETE(pNod);
+		S_DEL(pNod);
 	}
 	m_setNode.clear();
 	m_nNodeIndex=0;

@@ -25,7 +25,7 @@ bool	CDropRule::Create(IRecordset*	pRes)
 	IRecord* pRecord = pRes->CreateNewRecord();
 
 	bool ret = LoadInfo(pRecord);
-	SAFE_RELEASE (pRecord);
+	S_REL (pRecord);
 	return ret;
 }
 

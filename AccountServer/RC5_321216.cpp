@@ -1,7 +1,7 @@
 // RC5º”√‹À„∑®(32/12/16)
 // œ…Ω£–ﬁ£¨2001.11.16
-
-#include "stdafx.h"
+#include "windows.h"
+#include "assert.h"
 #include "stdlib.h"
 #include "rc5_321216.h"
 
@@ -17,7 +17,7 @@ void CRc5_321216::Rc5InitKey(const unsigned char bufKey[RC5_16])
 		memcpy(m_bufKey, bufKey, RC5_16);
 	}catch(...) {
 #ifdef	_DEBUG
-		ASSERT(!"InitRc5Key()");
+		assert(!"InitRc5Key()");
 #endif
 	}
 
@@ -45,7 +45,7 @@ void CRc5_321216::Rc5InitKey(const unsigned char bufKey[RC5_16])
 //////////////////////////
 void CRc5_321216::Rc5Encrypt(void* buf, int nLen8)
 {
-	ASSERT(nLen8 % 8 == 0);
+	assert(nLen8 % 8 == 0);
 	nLen8 = (nLen8/8) * 8;
 	if(nLen8 <= 0)
 		return;
@@ -72,7 +72,7 @@ void CRc5_321216::Rc5Encrypt(void* buf, int nLen8)
 //////////////////////////
 void CRc5_321216::Rc5Decrypt(void* buf, int nLen8)
 {
-	ASSERT(nLen8 % 8 == 0);
+	assert(nLen8 % 8 == 0);
 	nLen8 = (nLen8/8) * 8;
 	if(nLen8 <= 0)
 		return;

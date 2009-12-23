@@ -117,7 +117,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\Shared\Common;..\..\..\Shared\NetMsg;.;NetWork2;..\..\GameBaseCode;..\..\comm;..\share"
+				AdditionalIncludeDirectories="..\..\..\Shared\Common\Include;..\..\..\Shared\NetMsg;.;NetWork2;..\..\GameBaseCode;..\..\comm;..\share"
 				PreprocessorDefinitions="ACCOUNT_ENABLE;WORLD_KERNEL;WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

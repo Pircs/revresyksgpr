@@ -12,7 +12,7 @@ CMercenaryTaskData::CMercenaryTaskData()
 
 CMercenaryTaskData::~CMercenaryTaskData()
 {
-	SAFE_RELEASE (m_pData);
+	S_REL (m_pData);
 	if (m_pResultItem)
 		m_pResultItem->ReleaseByOwner();
 	ITEM_SET::iterator it=m_setPrizeItem.begin();

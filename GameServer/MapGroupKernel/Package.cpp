@@ -141,7 +141,7 @@ bool CPackage::CheckIn(CUser* pUser, CItem* pItem, bool bUpdate /*= true*/)
 	info.idItemType	= pItem->GetInt(ITEMDATA_TYPE);
 	info.usAmount	= pItem->GetInt(ITEMDATA_AMOUNT);
 	info.usAmountLimit	= pItem->GetInt(ITEMDATA_AMOUNTLIMIT);
-	info.ucIdent	= pItem->GetInt(ITEMDATA_IDENT);
+	info.ucStatus	= pItem->GetInt(ITEMDATA_IDENT);
 	info.ucGem1		= pItem->GetInt(ITEMDATA_GEM1);
 	info.ucGem2		= pItem->GetInt(ITEMDATA_GEM2);
 	info.ucMagic1	= pItem->GetInt(ITEMDATA_MAGIC1);
@@ -225,7 +225,7 @@ bool CPackage::SendInfo(CUser* pUser)
 
 			buf[nCount].usAmount	= pItem->GetInt(ITEMDATA_AMOUNT);
 			buf[nCount].usAmountLimit	= pItem->GetInt(ITEMDATA_AMOUNTLIMIT);
-			buf[nCount].ucIdent		= pItem->GetInt(ITEMDATA_IDENT);
+			buf[nCount].ucStatus		= pItem->GetInt(ITEMDATA_IDENT);
 			buf[nCount].ucGem1		= pItem->GetInt(ITEMDATA_GEM1);
 			buf[nCount].ucGem2		= pItem->GetInt(ITEMDATA_GEM2);
 			buf[nCount].ucMagic1	= pItem->GetInt(ITEMDATA_MAGIC1);

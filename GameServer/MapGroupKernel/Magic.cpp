@@ -40,7 +40,7 @@ MYHEAP_IMPLEMENTATION(CMagicData,s_heap)
 
 CMagicData::~CMagicData()
 {
-	SAFE_RELEASE (m_pData);
+	S_REL (m_pData);
 }
 
 IMagicData* IMagicData::CreateNew()
@@ -57,7 +57,7 @@ bool CMagicData::Create(IRecordset* pDefaultRecord, OBJID idNewKey)
 		return true;
 	}
 
-	SAFE_RELEASE (m_pData);
+	S_REL (m_pData);
 	return false;
 }
 
@@ -70,7 +70,7 @@ bool CMagicData::Create(IRecordset* pRecordset)
 		return true;
 	}
 	
-	SAFE_RELEASE (m_pData);
+	S_REL (m_pData);
 	return false;
 }
 

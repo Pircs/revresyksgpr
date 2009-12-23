@@ -25,9 +25,9 @@ CAuction::~CAuction()
 {
 	DEBUG_TRY
     if(m_pAuctionInfo)
-        SAFE_DELETE(m_pAuctionInfo);
+        S_DEL(m_pAuctionInfo);
 	if(m_SystemItem)
-		SAFE_DELETE(m_SystemItem);
+		S_DEL(m_SystemItem);
 	if(m_pPackage)
 		m_pPackage->Release();
 	DEBUG_CATCH("CAuction::~CAuction() ERROR");
@@ -284,7 +284,7 @@ void CAuction::OnTimer(DWORD nCurr)
 		DEBUG_CATCH("m_pAuctionInfo->UpdateRecord ERROR!")
 		// 重新初始化
 		m_nCountUp	= 0;
-		SAFE_DELETE(m_pProprietor);
+		S_DEL(m_pProprietor);
 		m_nState	= auction_none;
 		break;
 	default:

@@ -59,7 +59,7 @@ CNpc::~CNpc()
 		}
 	}
 
-	SAFE_RELEASE (m_setStatus);
+	S_REL (m_setStatus);
 
 	if(m_pData)
 	{
@@ -105,9 +105,9 @@ CNpc::~CNpc()
 		m_pBet->Release();
 	}
 	if (m_pEudemonBrooder)
-		SAFE_RELEASE (m_pEudemonBrooder);
+		S_REL (m_pEudemonBrooder);
 	if (m_pEudemonStorage)
-		SAFE_RELEASE (m_pEudemonStorage);
+		S_REL (m_pEudemonStorage);
 }
 
 bool CNpc::Create(PROCESS_ID idProcess, NPCINFO_ST* pInfo, OBJID idItemType, LPCTSTR szName)

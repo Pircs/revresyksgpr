@@ -262,7 +262,7 @@ void CGameAction::ReplaceAttrStr(char* pszTarget, const char* pszSource, CUser* 
 						{
 							sprintf(szNum, "%u", pExpData->GetInt(TUTOREXPDATA_EXP));
 						}
-						SAFE_RELEASE (pExpData);
+						S_REL (pExpData);
 					}
 					strcpy(ptr2, szNum);
 

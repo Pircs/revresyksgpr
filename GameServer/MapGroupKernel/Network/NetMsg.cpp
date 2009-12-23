@@ -56,7 +56,7 @@
 //
 //	if(!pMsg->CNetMsg::Create((char*)pbufMsg, dwMsgSize))
 //	{
-//		SAFE_DELETE(pMsg);
+//		S_DEL(pMsg);
 //		return NULL;
 //	}
 //	else
@@ -85,7 +85,7 @@
 //
 //	if(!pMsg->CNetMsg::Create((char*)pbufMsg, dwMsgSize))
 //	{
-//		SAFE_DELETE(pMsg);
+//		S_DEL(pMsg);
 //		return NULL;
 //	}
 //	else

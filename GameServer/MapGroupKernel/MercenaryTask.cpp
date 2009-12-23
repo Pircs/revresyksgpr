@@ -20,7 +20,7 @@ CMercenaryTask::~CMercenaryTask()
 	for (; it!=m_setData.end(); it++)
 	{
 		CMercenaryTaskData* pData = *it;
-		SAFE_RELEASE (pData);
+		S_REL (pData);
 	}
 }
 
@@ -42,14 +42,14 @@ bool CMercenaryTask::Create(PROCESS_ID idProcess)
 			}
 			else
 			{
-				SAFE_RELEASE (pData);
-				SAFE_RELEASE (pRes);
+				S_REL (pData);
+				S_REL (pRes);
 				return false;
 			}
 
 			pRes->MoveNext();
 		}
-		SAFE_RELEASE (pRes);
+		S_REL (pRes);
 	}
 
 	return true;
@@ -65,7 +65,7 @@ bool CMercenaryTask::CreateNewTask(const ST_MTASK_DATA* pInfo)
 			m_setData.push_back(pData);
 			return true;
 		}
-		SAFE_RELEASE (pData);
+		S_REL (pData);
 	}
 	return false;
 }
@@ -81,7 +81,7 @@ bool CMercenaryTask::DeleteTask(OBJID idTask)
 			if (!pData->DeleteRecord())
 				return false;
 			m_setData.erase(it);
-			SAFE_RELEASE (pData);
+			S_REL (pData);
 			return true;
 		}
 	}

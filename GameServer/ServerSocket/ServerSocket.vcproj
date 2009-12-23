@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\GameBaseCode;..\..\..\Shared\Common;..\..\..\Shared\NetMsg;..\..\comm;..\share"
+				AdditionalIncludeDirectories="..\..\GameBaseCode;..\..\..\Shared\Common\Include;..\..\..\Shared\NetMsg;..\..\comm;..\share"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

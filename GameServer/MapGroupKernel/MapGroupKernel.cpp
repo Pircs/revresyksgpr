@@ -55,7 +55,7 @@ bool CMapGroupKernel::Release()
 {
 	// TODO: 请在此添加代码
 	MapGroup(m_pMsgPort->GetID())->Destroy();
-	SAFE_RELEASE(m_pDb);
+	S_REL(m_pDb);
 
 	delete this;
 	return true;		// return false : 无意义。
@@ -629,7 +629,7 @@ bool CMapGroupKernel::BroadcastMapGroupMsg(Msg *pMsg)
 			ASSERT(!"catch");
 			::LogSave("exception catch at CGameSocket::ProcessMsg()! MsgType:%d", pMsg->GetType());
 		}
-		//SAFE_DELETE(pMsg);
+		//S_DEL(pMsg);
 	}
 
 	return true;

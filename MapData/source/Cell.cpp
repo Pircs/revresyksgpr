@@ -65,7 +65,7 @@ void CCell::Destory()
 	for(i = nAmount-1; i >= 0; i --)
 	{
 		CLayer* pLayer = m_setLayer[i];
-		SAFE_DELETE(pLayer);
+		S_DEL(pLayer);
 	}
 	m_setLayer.clear();
 */

@@ -373,7 +373,7 @@ void CNpcServerDlg::OnTimer(UINT nIDEvent)
 
 				if(m_pInterPort)
 				{
-					SAFE_DELETE(m_pInterPort);
+					S_DEL(m_pInterPort);
 				}
 
 				m_nState	= STATE_CLOSED;

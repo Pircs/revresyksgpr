@@ -18,14 +18,14 @@ long	s_nPointSum = 0;
 long	s_nAllTimeSum = 0;
 long	s_nDatabaseTimeSum = 0;
 
-CCriticalSection	s_xCtrl;
+//CCriticalSection	s_xCtrl;
 char	s_bufText[4096] = "";
 char	s_bufState[MAXGAMESERVERS] = "";
 char	s_bufStateBackup[MAXGAMESERVERS] = "";
 void	PrintText(const char * szFormat, ...)
 {
-	CSingleLock xLock(&s_xCtrl, true);
-	ASSERT(xLock.IsLocked());
+	//CSingleLock xLock(&s_xCtrl, true);
+	//ASSERT(xLock.IsLocked());
 
 	va_list argptr;
 	va_start( argptr, szFormat);     /* Initialize variable arguments. */
@@ -58,8 +58,8 @@ void	PrintText(const char * szFormat, ...)
 
 bool	LockedGetText(char * buf)
 {
-	CSingleLock xLock(&s_xCtrl, true);
-	ASSERT(xLock.IsLocked());
+//	CSingleLock xLock(&s_xCtrl, true);
+//	ASSERT(xLock.IsLocked());
 
 	if(strlen(s_bufText))
 	{
@@ -75,8 +75,8 @@ bool	LockedGetText(char * buf)
 
 void	SetServerState(int nIndex, int nState)
 {
-	CSingleLock xLock(&s_xCtrl, true);
-	ASSERT(xLock.IsLocked());
+//	CSingleLock xLock(&s_xCtrl, true);
+//	ASSERT(xLock.IsLocked());
 
 	if(nIndex >= 0 && nIndex < MAXGAMESERVERS)
 		s_bufState[nIndex] = nState;
@@ -87,8 +87,8 @@ void	SetServerState(int nIndex, int nState)
 
 void	GetServerState(char * buf)
 {
-	CSingleLock xLock(&s_xCtrl, true);
-	ASSERT(xLock.IsLocked());
+//	CSingleLock xLock(&s_xCtrl, true);
+//	ASSERT(xLock.IsLocked());
 
 	//首次初始化
 	if(s_bufState[0] == 0)

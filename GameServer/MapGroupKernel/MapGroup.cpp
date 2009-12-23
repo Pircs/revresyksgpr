@@ -278,48 +278,48 @@ bool CMapGroup::Create(PROCESS_ID idProcess, ISocket* pSocket, IDatabase* pDb, I
 
 void CMapGroup::Destroy()
 {
-	SAFE_RELEASE (m_pMercenaryTask);
-	SAFE_RELEASE (m_pGameAction);
-	SAFE_RELEASE (m_pLeaveWord);
-	SAFE_RELEASE (m_pNpcManager);
-	SAFE_RELEASE (m_pUserManager);
-	SAFE_RELEASE (m_pRoleManager);
-	SAFE_RELEASE (m_pSynManager);
-	SAFE_RELEASE (m_pMapManager);
-	SAFE_RELEASE (m_pAnnounce);
+	S_REL (m_pMercenaryTask);
+	S_REL (m_pGameAction);
+	S_REL (m_pLeaveWord);
+	S_REL (m_pNpcManager);
+	S_REL (m_pUserManager);
+	S_REL (m_pRoleManager);
+	S_REL (m_pSynManager);
+	S_REL (m_pMapManager);
+	S_REL (m_pAnnounce);
 
 	// 清除全局常量对象
 	if(m_idProcess == MSGPORT_MAPGROUP_FIRST)		//@ 可能有问题
 	{
 		CWantedList::s_WantedList.Release();
 
-		SAFE_RELEASE (g_setRebirth);
-		SAFE_RELEASE (g_setMonsterType);
-		SAFE_RELEASE (g_setTrapType);
-		SAFE_RELEASE (g_setMagicTrack);
-		SAFE_RELEASE (g_setAutoMagicType);
-		SAFE_RELEASE (g_setMagicType);
-		SAFE_RELEASE (g_setAddPoint);
-		SAFE_RELEASE (g_setLevupexp);
-		SAFE_RELEASE(g_setAction);
-		SAFE_RELEASE(g_setTask);
-		SAFE_RELEASE (g_setStaticMap);
-		SAFE_RELEASE (g_pItemType);
+		S_REL (g_setRebirth);
+		S_REL (g_setMonsterType);
+		S_REL (g_setTrapType);
+		S_REL (g_setMagicTrack);
+		S_REL (g_setAutoMagicType);
+		S_REL (g_setMagicType);
+		S_REL (g_setAddPoint);
+		S_REL (g_setLevupexp);
+		S_REL(g_setAction);
+		S_REL(g_setTask);
+		S_REL (g_setStaticMap);
+		S_REL (g_pItemType);
 		// add by zlong 2003-11-15
-		SAFE_RELEASE (g_pDropRuleMap);
-		SAFE_RELEASE (g_pItemAddition);
+		S_REL (g_pDropRuleMap);
+		S_REL (g_pItemAddition);
 	}
-	SAFE_RELEASE (m_pEudemonDataDefault);
-	SAFE_RELEASE (m_pDynaMapDataDefault);
-	SAFE_RELEASE (m_pDynaNpcDataDefault);
-	SAFE_RELEASE (m_pPetDataDefault);
-	SAFE_RELEASE (m_pSynAttrDataDefault);
-	SAFE_RELEASE (m_pSynDataDefault);
-	SAFE_RELEASE (m_pMagicDataDefault);
-	SAFE_RELEASE (m_pUserWeaponSkillDefault);
-	SAFE_RELEASE (m_pGameItemDataDefault);
-	SAFE_RELEASE (m_pUserDataDefault);
-	SAFE_RELEASE (m_pGameMapDataDefault);
+	S_REL (m_pEudemonDataDefault);
+	S_REL (m_pDynaMapDataDefault);
+	S_REL (m_pDynaNpcDataDefault);
+	S_REL (m_pPetDataDefault);
+	S_REL (m_pSynAttrDataDefault);
+	S_REL (m_pSynDataDefault);
+	S_REL (m_pMagicDataDefault);
+	S_REL (m_pUserWeaponSkillDefault);
+	S_REL (m_pGameItemDataDefault);
+	S_REL (m_pUserDataDefault);
+	S_REL (m_pGameMapDataDefault);
 }
 
 void CMapGroup::OnTimer(time_t tCurr)

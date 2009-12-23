@@ -75,7 +75,7 @@ class CMagicTypeData
 {
 public:
 	CMagicTypeData()			{ m_pData = NULL; }
-	virtual ~CMagicTypeData()	{ if (m_pData) SAFE_RELEASE (m_pData); }
+	virtual ~CMagicTypeData()	{ if (m_pData) S_REL (m_pData); }
 
 public:
 	static CMagicTypeData*	CreateNew	()	{ return new CMagicTypeData; }

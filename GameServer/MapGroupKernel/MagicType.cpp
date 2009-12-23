@@ -93,7 +93,7 @@ CMagicType::CMagicType()
 CMagicType::~CMagicType()
 {
 	if (m_setType)
-		SAFE_RELEASE (m_setType);
+		S_REL (m_setType);
 }
 
 // 

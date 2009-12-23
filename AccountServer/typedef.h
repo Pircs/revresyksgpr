@@ -38,7 +38,7 @@ const unsigned char RC5BARPASSWORD_KEY[16] = {	0x44, 0xD0, 0xE2, 0xBA, 0x4A, 0x3
 #endif
 #define IPSTRSIZE		16
 //#define _MAX_MSGSIZE		1024			// 不能重定义
-//#define	FD_SETSIZE			600			//??? 与 StdAfx.h 中同步
+#define	FD_SETSIZE			600			//??? 与 StdAfx.h 中同步
 #define RECVREPEATTIMES		3
 #define MAXGAMESERVERS		100			//? ★注意与DLG中同步。游戏服务器最大数量(最大连接数)
 #define	MAXCONNECTS			(FD_SETSIZE - MAXGAMESERVERS - 10)	//? 登录线程最大连接数

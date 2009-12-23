@@ -100,17 +100,17 @@ void CUser::SaveItemInfo()
 
 void CUser::DeleteAllItem()
 {
-	SAFE_RELEASEBYOWNER(m_pHelmet);
-	SAFE_RELEASEBYOWNER(m_pNecklace);
-	SAFE_RELEASEBYOWNER(m_pArmor);
-	SAFE_RELEASEBYOWNER(m_pWeaponR);
-	SAFE_RELEASEBYOWNER(m_pWeaponL);
-	SAFE_RELEASEBYOWNER(m_pRingR);
-	SAFE_RELEASEBYOWNER(m_pRingL);
-	SAFE_RELEASEBYOWNER(m_pShoes);
-	SAFE_RELEASEBYOWNER(m_pMount);
-	SAFE_RELEASEBYOWNER(m_pSprite);
-	SAFE_RELEASEBYOWNER(m_pMantle);
+	S_RELBYOWNER(m_pHelmet);
+	S_RELBYOWNER(m_pNecklace);
+	S_RELBYOWNER(m_pArmor);
+	S_RELBYOWNER(m_pWeaponR);
+	S_RELBYOWNER(m_pWeaponL);
+	S_RELBYOWNER(m_pRingR);
+	S_RELBYOWNER(m_pRingL);
+	S_RELBYOWNER(m_pShoes);
+	S_RELBYOWNER(m_pMount);
+	S_RELBYOWNER(m_pSprite);
+	S_RELBYOWNER(m_pMantle);
 
 	m_pPackage->ClearAll();
 

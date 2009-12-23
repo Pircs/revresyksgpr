@@ -21,7 +21,7 @@ CTaskDetail::~CTaskDetail()
 	for (; it!=m_setData.end(); it++)
 	{
 		CTaskDetailData* pData = *it;
-		SAFE_RELEASE (pData);
+		S_REL (pData);
 	}
 }
 
@@ -45,14 +45,14 @@ bool CTaskDetail::Create(PROCESS_ID idProcess, CUser *pUser)
 			}
 			else
 			{
-				SAFE_RELEASE (pData);
-				SAFE_RELEASE (pRes);
+				S_REL (pData);
+				S_REL (pRes);
 				return false;
 			}
 
 			pRes->MoveNext();
 		}
-		SAFE_RELEASE (pRes);
+		S_REL (pRes);
 	}
 
 	return true;
@@ -68,7 +68,7 @@ bool CTaskDetail::CreateNewTaskDetailData(ST_TASKDETAILDATA *pInfo)
 			m_setData.push_back(pData);
 			return true;
 		}
-		SAFE_RELEASE (pData);
+		S_REL (pData);
 	}
 	return false;
 }
@@ -107,7 +107,7 @@ bool CTaskDetail::DeleteData(OBJID idUser, OBJID idTask)
 		if (pData && pData->GetInt(TASKDETAILDATA_USERID) == idUser	&& pData->GetInt(TASKDETAILDATA_TASKID) == idTask)
 		{
 			pData->DeleteRecord();
-			SAFE_RELEASE (pData);
+			S_REL (pData);
 			m_setData.erase(it);
 			return true;
 		}

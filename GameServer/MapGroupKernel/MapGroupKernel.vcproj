@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="Network;.;..\..\comm;..\..\MapData;..\..\..\Shared\NetMsg;..\..\..\Shared\Common;..\..\GameBaseCode;..\share"
+				AdditionalIncludeDirectories="Network;.;..\..\comm;..\..\MapData;..\..\..\Shared\NetMsg;..\..\..\Shared\Common\Include;..\..\GameBaseCode;..\share"
 				PreprocessorDefinitions="NEW_EUDEMON;MAPGROUP_KERNEL;WIN32;_DEBUG;_LIB;NO_ZLONG_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

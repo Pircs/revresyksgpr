@@ -69,7 +69,7 @@ CMapData* CMapData::CreateNew(LPCTSTR pszFileName, LPCTSTR pszVersion)
 	{
 		LOGERROR("地图文件[%s]数据装载错误！", pszFileName);
 
-		SAFE_DELETE(ptr);
+		S_DEL(ptr);
 		fclose(fp);
 		return NULL;
 	}
@@ -80,7 +80,7 @@ CMapData* CMapData::CreateNew(LPCTSTR pszFileName, LPCTSTR pszVersion)
 	{
 		LOGERROR("背景文件[%s]数据装载错误！", szFileName);
 
-		SAFE_DELETE(ptr);
+		S_DEL(ptr);
 		return NULL;
 	}
 
@@ -419,7 +419,7 @@ void CMapData::ClearCell()
 	for(int i = 0; i < nAmount; i++)
 	{
 		CCell* pCell = m_setCell[i];
-		SAFE_DELETE(pCell);
+		S_DEL(pCell);
 	}
 */	m_setCell.clear();
 }
@@ -430,7 +430,7 @@ void CMapData::ClearPassage()
 	for(int i = 0; i < nAmount; i++)
 	{
 		PassageInfo* pInfo = m_setPassage[i];
-		SAFE_DELETE(pInfo);
+		S_DEL(pInfo);
 	}
 	m_setPassage.clear();
 }
@@ -441,7 +441,7 @@ void CMapData::ClearMapObj()
 	for(int i = 0; i < nAmount; i++)
 	{
 		CTerrainObj* pInfo = m_setMapObj[i];
-		SAFE_DELETE(pInfo);
+		S_DEL(pInfo);
 	}
 	m_setMapObj.clear();
 }
@@ -522,7 +522,7 @@ void CMapData::DelPassage(POINT posMap)
 		{
 			if((pInfo->nPosX == posMap.x) && (pInfo->nPosY == posMap.y))
 			{
-				SAFE_DELETE(pInfo);
+				S_DEL(pInfo);
 				m_setPassage.erase(m_setPassage.begin()+i);
 				// 兼容于编辑器	return ;
 			}
@@ -563,7 +563,7 @@ bool CMapData::DelMapObj(int idx)
 	CTerrainObj* pObj = m_setMapObj[idx];
 	if(pObj && DisplaceTerrainObj(pObj))
 	{
-		SAFE_DELETE(pObj);
+		S_DEL(pObj);
 		m_setMapObj.erase(m_setMapObj.begin() + idx);
 		return true;
 	}
@@ -600,7 +600,7 @@ bool CMapData::AddTerrainItem(OBJID idOwner, int nCellX, int nCellY, OBJID idTer
 
 	if(!AddMapObj(pObj))
 	{
-		SAFE_DELETE(pObj);
+		S_DEL(pObj);
 		return false;
 	}
 

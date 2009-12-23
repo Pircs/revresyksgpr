@@ -1,10 +1,8 @@
 // 所有头文件
 // 仙剑修，2001.11.19
 #pragma once
-
-#include "StdAfx.h"
+#include <windows.h>
 #include <assert.h>
-#include <afxmt.h>
 
 #include "Typedef.h"
 #ifdef	ENCRYPT

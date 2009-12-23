@@ -207,7 +207,7 @@ bool CUserList::LogoutUser(SOCKET_ID idSocket)		// return false: no this user
 		InterlockedIncrement(&g_stat.nLogoutPlayers);
 	}
 	{
-		SAFE_DELETE(m_setUser[idSocket]);
+		S_DEL(m_setUser[idSocket]);
 		m_setUser[idSocket] = NULL;
 		return true;
 	}

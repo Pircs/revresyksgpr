@@ -49,7 +49,7 @@ CTerrainObj* CTerrainObj::CreateNew(LPCTSTR pszFile, OBJID idOwner /*= ID_NONE*/
 		if(!pPart)
 		{
 			fclose(fp);
-			SAFE_DELETE(ptr);
+			S_DEL(ptr);
 			return NULL;
 		}
 
@@ -84,7 +84,7 @@ void CTerrainObj::Destory()
 	for(int i = nAmount-1; i >= 0; i --)
 	{
 		CTerrainObjPart* pPart = m_setPart[i];
-		SAFE_DELETE(pPart);
+		S_DEL(pPart);
 	}
 	m_setPart.clear();
 }
@@ -109,7 +109,7 @@ void CTerrainObj::DelPart(int nIndex)
 	CTerrainObjPart* pPart = m_setPart[nIndex];
 	if(pPart)
 	{
-		SAFE_DELETE(pPart);
+		S_DEL(pPart);
 	}
 	m_setPart.erase(m_setPart.begin()+nIndex);
 }

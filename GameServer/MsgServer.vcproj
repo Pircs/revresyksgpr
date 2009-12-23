@@ -146,7 +146,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Shared\Common;..\..\Shared\NetMsg;..\comm;..\GameBaseCode;share"
+				AdditionalIncludeDirectories="..\..\Shared\Common\Include;..\..\Shared\NetMsg;..\comm;..\GameBaseCode;share"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;X_DEBUG_MULTITHREAD"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

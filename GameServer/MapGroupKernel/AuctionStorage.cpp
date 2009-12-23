@@ -15,14 +15,14 @@ CAuctionStorage::~CAuctionStorage()
 	{
 		pInfo = m_SetAuctionQueue.pop();
 		if(pInfo)
-			SAFE_DELETE(pInfo);
+			S_DEL(pInfo);
 	}
 	m_SetAuctionQueue.clear();
 	for(int i = 0;i < m_SetSysAuction.size();i++)
 	{
 		pInfo = m_SetSysAuction.pop();
 		if(pInfo)
-			SAFE_DELETE(pInfo);
+			S_DEL(pInfo);
 	}
 	m_SetSysAuction.clear();
 	DEBUG_CATCH("CAuctionStorage::~CAuctionStorage() ERROR!")
