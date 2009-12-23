@@ -1,0 +1,49 @@
+
+#pragma once
+
+#include "basefunc.h"
+
+const int EVENTPACK_SIZE		= 1024 + 2*sizeof(USHORT) + sizeof(ULONG);
+
+class CEventPack  
+{
+public:
+	CEventPack(DWORD idEvent, ULONG idKey, DWORD idAction=0);
+	CEventPack(const char* pPackBuf, int nPackSize);
+	virtual ~CEventPack();
+
+public: // appilcation
+	CEventPack& operator <<(const int nData);
+	CEventPack& operator <<(const String& str);
+	CEventPack& operator >>(int& nData);
+	CEventPack& operator >>(String& str);
+
+public: // const
+	int		GetEventType()	const		{ return m_idEventType; }
+	ULONG	GetObjID()		const		{ return m_idKey; }
+	int		GetAction()		const		{ return m_idAction; }
+
+	const char*	GetBuf()	const		{ return m_buf; }
+	int		GetSize()		const		{ return m_ptr - m_buf; }
+
+protected:
+	union{
+		char	m_buf[EVENTPACK_SIZE];
+		struct{
+			USHORT	m_idEventType;
+			USHORT	m_idAction;
+			ULONG	m_idKey;
+			char	m_setParam[1];
+		};
+	};
+
+protected: // ctrl
+	bool	IsUnite()				{ return !m_bSplit; }
+	bool	IsSplit()				{ return m_bSplit; }
+	bool	CheckLen(int nSize)		{ return m_ptr+nSize <= m_setParam; }
+protected:
+	bool	m_bSplit;
+	char*	m_ptr;
+};
+
+
