@@ -6,6 +6,13 @@
 
 #include "allheads.h"
 
+void SetColor(unsigned short ForeColor=7,unsigned short BackGroundColor=0) 
+{ 
+	HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE); 
+	SetConsoleTextAttribute(hCon,ForeColor|BackGroundColor); 
+};
+#include <iostream>
+#include <windows.h>
 long m_nLoginAcceptP5= 0;
 long m_nPointFeeP5= 0;
 std::string	m_sText;
@@ -54,22 +61,35 @@ BOOL OnInitDialog()
 	LOGMSG("** 帐号服务器开始启动");
 	LOGMSG("***************************************************************");
 
-	printf("***************************************************************\n");
-	printf("** 帐号服务器开始启动\n");
-	printf("***************************************************************\n");
+	SetColor(FOREGROUND_GREEN); 
+	std::cout<<"==============================================================================="<<endl;
+	std::cout<<"=== "<<SERVERTITLE<<endl;
+	std::cout<<"=== Start server time is ";
+	SetColor(); 
+	std::cout<<bufStart<<endl;
+	SetColor(FOREGROUND_GREEN); 
+	std::cout<<"==============================================================================="<<endl;
+	SetColor(FOREGROUND_RED,BACKGROUND_BLUE); 
+	std::cout<<"***************************************************************"<<endl;
+	std::cout<<"**                  Account Server started                   **"<<endl;
+	std::cout<<"***************************************************************"<<endl;
+	
 
 	if(!GetConfig())	// 装入配置文件
 	{
 		LOGERROR("无法读取config.ini文件，程序退出");
-		::MessageBox(NULL, "无法读取config.ini文件","",0);
+		SetColor(FOREGROUND_RED); 
+		std::cout<<"无法读取config.ini文件"<<endl;
 		return true;
 	}
 	LOGMSG("读取INI完毕!");
-	printf("读取INI完毕!\n");
+	SetColor(FOREGROUND_GREEN); 
+	std::cout<<"读取INI完毕!"<<endl;
 
 	// reset title
 	if(strlen(SERVER_TITLE))
 		SetWindowText(NULL,SERVER_TITLE);
+	std::cout<<SERVER_TITLE<<endl;
 	/*
 	// 初始化网络
 	WSADATA		wsaData;
@@ -129,16 +149,22 @@ BOOL OnInitDialog()
 	pRes->Release();
 
 	g_pOnlineTable = new COnlineTable(ONLINETABLESIZE);
+	SetColor(FOREGROUND_GREEN); 
+	std::cout<<"OnlineTable 对象创建成功!"<<endl;
 	LOGMSG("OnlineTable 对象创建成功!");
 	g_pPointThread = new CPointThread(POINTLISTENPORT, POINTSOCKETSNDBUF);
+	std::cout<<"PointThread 对象创建成功!"<<endl;
 	LOGMSG("PointThread 对象创建成功!");
 	g_pLoginThread = new CLoginThread(LOGINLISTENPORT);
+	std::cout<<"LoginThread 对象创建成功!"<<endl;
 	LOGMSG("LoginThread 对象创建成功!");
 
 	int err2 = 0;
 	err2 += !g_pPointThread->CreateThread(false);
+	std::cout<<"PointThread 线程创建完毕!"<<endl;
 	LOGMSG("PointThread 线程创建完毕!");
 	err2 += !g_pLoginThread->CreateThread(false);
+	std::cout<<"LoginThread 线程创建完毕!"<<endl;
 	LOGMSG("LoginThread 线程创建完毕!");
 
 	// GetServerAccount();
@@ -163,12 +189,21 @@ BOOL OnInitDialog()
 
 	SetTimer(NULL,1, 1000, NULL);
 	LOGMSG("SetTimer 启动完毕!");
+	std::cout<<"SetTimer 启动完毕!"<<endl;
 
 	LOGMSG("启动完毕，程序正常运行中-------------------------------------");
+	std::cout<<"启动完毕，程序正常运行中-------------------------------------"<<endl;
+
 	if(g_bEnableLogin)
+	{
 		PrintText("服务器正常运行中 . . .");
+		std::cout<<"服务器正常运行中 . . ."<<endl;
+	}
 	else
+	{
 		PrintText("暂停玩家登录 %d 秒, 等待游戏服务器同步 . . .", ENABLELOGINDELAY);
+		std::cout<<"暂停玩家登录 "<<ENABLELOGINDELAY<<" 秒, 等待游戏服务器同步 . . ."<<endl;
+	}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -396,6 +431,7 @@ void OnTimer(UINT nIDEvent)
 			bLogOK = true;
 			LOGMSG("帐号服务器开始允许玩家登录");
 			PrintText("允许玩家登录");
+			std::cout<<"允许玩家登录"<<endl;
 		}
 
 		// 写COUNT.TXT
@@ -427,6 +463,7 @@ void OnClose()
 		bFlag = true;
 		LOGMSG("服务器开始退出------------------------------------------------");
 		PrintText("服务器退出中 . . .");
+		std::cout<<"服务器退出中 . . ."<<endl;
 
 		KillTimer(NULL,1);
 	}
@@ -458,6 +495,10 @@ void OnClose()
 			LOGMSG("***************************************************************");
 			LOGMSG("**  服务器正常关闭");
 			LOGMSG("***************************************************************\n\n\n");
+
+			std::cout<<"***************************************************************"<<endl;
+			std::cout<<"**  服务器正常关闭"<<endl;
+			std::cout<<"***************************************************************\n\n\n"<<endl;
 			return;
 		}
 	}
@@ -469,8 +510,12 @@ extern "C"
 	WINBASEAPI HWND WINAPI GetConsoleWindow();
 }
 
+
+
 int main(int argc, char *argv[])   //主线程运行结束，辅助线程也结束。
 {
+
+	//return 0; 
 	//HWND hwnd;
 	//HDC hdc;
 	//printf("There are some words in console window!\n在控制台窗口中绘图!\n");
@@ -482,6 +527,12 @@ int main(int argc, char *argv[])   //主线程运行结束，辅助线程也结束。
 	//TextOut(hdc, 10, 10, _TEXT("Hello World\nYesNoConcel!"), 20);
 	//ReleaseDC(hwnd, hdc);
 	OnInitDialog();
+	for(;;)
+	{
+		OnTimer(1);
+	}
 	getch();
+	std::system("pause");
+
 	return 0;
 }
