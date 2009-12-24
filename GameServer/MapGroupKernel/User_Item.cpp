@@ -100,18 +100,30 @@ void CUser::SaveItemInfo()
 
 void CUser::DeleteAllItem()
 {
-	S_RELBYOWNER(m_pHelmet);
-	S_RELBYOWNER(m_pNecklace);
-	S_RELBYOWNER(m_pArmor);
-	S_RELBYOWNER(m_pWeaponR);
-	S_RELBYOWNER(m_pWeaponL);
-	S_RELBYOWNER(m_pRingR);
-	S_RELBYOWNER(m_pRingL);
-	S_RELBYOWNER(m_pShoes);
-	S_RELBYOWNER(m_pMount);
-	S_RELBYOWNER(m_pSprite);
-	S_RELBYOWNER(m_pMantle);
+	m_pHelmet->ReleaseByOwner();
+	m_pNecklace->ReleaseByOwner();
+	m_pArmor->ReleaseByOwner();
+	m_pWeaponR->ReleaseByOwner();
+	m_pWeaponL->ReleaseByOwner();
+	m_pRingR->ReleaseByOwner();
+	m_pRingL->ReleaseByOwner();
+	m_pShoes->ReleaseByOwner();
+	m_pMount->ReleaseByOwner();
+	m_pSprite->ReleaseByOwner();
+	m_pMantle->ReleaseByOwner();
 
+	m_pHelmet=NULL;
+	m_pNecklace=NULL;
+	m_pArmor=NULL;
+	m_pWeaponR=NULL;
+	m_pWeaponL=NULL;
+	m_pRingR=NULL;
+	m_pRingL=NULL;
+	m_pShoes=NULL;
+	m_pMount=NULL;
+	m_pSprite=NULL;
+
+	m_pMantle->ReleaseByOwner();
 	m_pPackage->ClearAll();
 
 	UpdateWeight();

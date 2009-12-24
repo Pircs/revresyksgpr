@@ -698,7 +698,7 @@ bool CMagic::AbortMagic(bool bSynchro)
 	if(bSynchro)
 	{
 		CMsgAction msg;
-		if (msg.Create(m_pOwner->GetID(), 0, 0, 0, actionAbordMagic))
+		if (msg.Create(m_pOwner->GetID(), 0, 0, 0, actionAbortMagic))
 			m_pOwner->SendMsg(&msg);
 	}
 

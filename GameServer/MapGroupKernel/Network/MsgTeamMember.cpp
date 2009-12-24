@@ -15,7 +15,7 @@ bool CMsgTeamMember::Create(CUser* pMember)
 	TeamMemberInfo info;
 	memset(&info, 0L, sizeof(TeamMemberInfo));
 	info.id			= pMember->GetID();
-	info.dwLookFace	= pMember->GetLookFace();
+	info.usLookFace	= pMember->GetLookFace();
 	info.usHp		= pMember->GetLife();
 	info.usMaxHp	= pMember->GetMaxLife();
 	strcpy(info.szName, pMember->GetName());

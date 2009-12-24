@@ -118,7 +118,7 @@
 			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
-			UseOfMFC="1"
+			UseOfMFC="2"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
 			>
@@ -150,7 +150,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;X_DEBUG_MULTITHREAD"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
 				AssemblerListingLocation="$(IntDir)\"
 				ObjectFile="$(IntDir)\"
@@ -262,26 +262,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="MsgServer.rc"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="MsgServerDlg.cpp"
 				>
 				<FileConfiguration
@@ -326,29 +306,8 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="StdAfx.cpp"
+				RelativePath=".\TimerThread.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="stdafx.h"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="WorldThread.cpp"
@@ -382,10 +341,6 @@
 				>
 			</File>
 			<File
-				RelativePath="MsgServer.h"
-				>
-			</File>
-			<File
 				RelativePath="MsgServerDlg.h"
 				>
 			</File>
@@ -394,32 +349,15 @@
 				>
 			</File>
 			<File
-				RelativePath="Resource.h"
-				>
-			</File>
-			<File
 				RelativePath="SocketThread.h"
 				>
 			</File>
 			<File
-				RelativePath="StdAfx.h"
+				RelativePath=".\TimerThread.h"
 				>
 			</File>
 			<File
 				RelativePath="WorldThread.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
-			<File
-				RelativePath="res\MsgServer.ico"
-				>
-			</File>
-			<File
-				RelativePath="res\MsgServer.rc2"
 				>
 			</File>
 		</Filter>
@@ -473,5 +411,9 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="MsgServer.rc"
+		/>
 	</Globals>
 </VisualStudioProject>

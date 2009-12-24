@@ -19,10 +19,10 @@ bool CMsgItemInfo::Create(CGameAuctionSystemData* pData, int nAction)
 	m_ucAction			= nAction;	
 	m_id					= pData->GetID();	
 	m_dwType				= pData->GetInt(AUCTION_SYSTEMITEM_TYPE);
-	m_ucIdent			= _ITEM_STATUS_NOT_IDENT;
+	m_ucStatus			= _ITEM_STATUS_NOT_IDENT;
 	m_usAmount			= pData->GetInt(AUCTION_SYSTEMITEM_AMOUNT);
 	m_usAmountLimit		= pData->GetInt(AUCTION_SYSTEMITEM_AMOUNTLIMIT);
-	m_ucIdent			= pData->GetInt(AUCTION_SYSTEMITEM_IDENT);
+	m_ucStatus			= pData->GetInt(AUCTION_SYSTEMITEM_IDENT);
 	m_ucGem1				= pData->GetInt(AUCTION_SYSTEMITEM_GEM1);
 	m_ucGem2				= pData->GetInt(AUCTION_SYSTEMITEM_GEM2);
 	m_ucMagic1			= pData->GetInt(AUCTION_SYSTEMITEM_MAGIC1);
@@ -51,12 +51,12 @@ bool CMsgItemInfo::Create(CItem* pItem, int nAction /*= ITEMINFO_ADDITEM*/, OBJI
 		m_id					= idUser;
 	m_dwType				= info.idType;
 	m_ucPosition			= info.nPosition;
-	m_ucIdent			= _ITEM_STATUS_NOT_IDENT;
+	m_ucStatus			= _ITEM_STATUS_NOT_IDENT;
 	if(!pItem->IsNeedIdent())
 	{
 		m_usAmount			= info.nAmount;
 		m_usAmountLimit		= info.nAmountLimit;
-		m_ucIdent			= info.nIdent;
+		m_ucStatus			= info.nIdent;
 		m_ucGem1				= info.nGem1;
 		m_ucGem2				= info.nGem2;
 		m_ucMagic1			= info.nMagic1;

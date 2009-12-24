@@ -240,28 +240,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="AccountServerDlg.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="Global.cpp"
 				>
 				<FileConfiguration
@@ -394,6 +372,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\TimerThread.cpp"
+				>
+			</File>
+			<File
 				RelativePath="typedef.cpp"
 				>
 				<FileConfiguration
@@ -462,6 +444,10 @@
 			</File>
 			<File
 				RelativePath="T_Index.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TimerThread.h"
 				>
 			</File>
 		</Filter>

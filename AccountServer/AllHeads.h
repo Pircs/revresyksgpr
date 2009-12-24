@@ -16,6 +16,7 @@
 #include "LoginThread.h"
 #include "PointThread.h"
 #include "OnlineTable.h"
+#include "TimerThread.h"
 
 #include "Account.h"
 

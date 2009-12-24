@@ -2,7 +2,6 @@
 // œ…Ω£–ﬁ£¨2002.8.28
 #pragma once
 #pragma warning(disable:4786)
-#include <afxmt.h>
 #include "winsock2.h"
 #include "I_MessagePort.h"
 #include "T_MyQueue.h"
@@ -21,9 +20,14 @@ struct	CMessagePacket
 	char	m_bufData[MAX_MSGPACKSIZE];
 };
 
-#define	CRITSECT	CCriticalSection
-#define LOCKOBJ		CSingleLock xLock(&m_xCtrl, true)
-#define UNLOCKOBJ	xLock.Unlock()
+// #define	CRITSECT	CCriticalSection
+// #define LOCKOBJ		CSingleLock xLock(&m_xCtrl, true)
+// #define UNLOCKOBJ	xLock.Unlock()
+
+#define	CRITSECT	int
+#define LOCKOBJ	
+#define UNLOCKOBJ
+
 MSGPORT_END///////////////////////////
 ///////////////////////////
 class	CMessagePort : private IMessagePort

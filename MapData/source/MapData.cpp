@@ -9,7 +9,7 @@
 #include "LOGFILE.h"
 #include <math.h>
 
-const int	_MAX_TITLESIZE			= 128;
+//const int	_MAX_TITLESIZE			= 128;
 
 //----------------------------------------------------//
 

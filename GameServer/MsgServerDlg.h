@@ -30,26 +30,7 @@ class CMsgServerDlg : public CDialog
 // Construction
 public:
 	bool LoadConfigIni();
-	bool ProcessMsg(OBJID idPacket, void* pMsg, int nType, int nSource);
-	void PrintText(LPCTSTR szMsg);
-	bool Process();
-	bool ProcessInterMsg();
-	CMsgServerDlg(CWnd* pParent = NULL);	// standard constructor
-
-// Dialog Data
-	//{{AFX_DATA(CMsgServerDlg)
-	enum { IDD = IDD_MSGSERVER_DIALOG };
-	CString	m_sKernelState;
-	CString	m_sShellState;
-	CString	m_sTalk;
 	CString	m_sText;
-	//}}AFX_DATA
-
-	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CMsgServerDlg)
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
-	//}}AFX_VIRTUAL
 
 // Implementation
 protected:
@@ -61,34 +42,19 @@ protected:
 	CTimeOut m_tStat;
 	typedef	vector<CMapGroupThread*>	MAPGROUP_SET;
 	MAPGROUP_SET m_setMapGroupThread;
-	CSocketThread* m_pSocketThread;
-	CWorldThread* m_pWorldThread;
+
 	IMessagePort* m_pMsgPort;
 	IMessagePort* m_pInterPort;
 	int m_nTextLines;
 	int m_nState;
-	int m_nAllPlayers;
-	int m_nMaxPlayers;
-	HICON m_hIcon;
 
 	STAT_STRUCT m_stat;
 	HANDLE	m_hMutexThread;
 	HANDLE	m_hMutexServer;
-
-	// Generated message map functions
-	//{{AFX_MSG(CMsgServerDlg)
 	virtual BOOL OnInitDialog();
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-	afx_msg void OnPaint();
-	afx_msg HCURSOR OnQueryDragIcon();
-	afx_msg void OnTimer(UINT nIDEvent);
+
 	virtual void OnCancel();
 	afx_msg void OnSend();
-	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
+public:
+
 };
-
-//{{AFX_INSERT_LOCATION}}
-// Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-

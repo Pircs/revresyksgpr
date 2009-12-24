@@ -22,6 +22,7 @@ extern long s_nAllTimeSum;
 extern long s_nDatabaseTimeSum;
 
 void	PrintText(const char * szFormat, ...);
+const char* getCurrTimeString();
 bool	LockedGetText(char * buf);
 
 enum	{ c_flagNone='.', c_flagOffline=',', c_flagSocket=':', c_flagAccount='-', c_flagStop='#', c_flagNormal='=', c_flagNormal91U='U', 
@@ -52,6 +53,8 @@ typedef vector<ISP_ST>		ISP_SET;
 extern COnlineTable *	g_pOnlineTable;		// 在线玩家表
 extern CPointThread *	g_pPointThread;		// (POINTLISTENPORT);
 extern CLoginThread *	g_pLoginThread;		// (LOGINLISTENPORT);
+extern CTimerThread *	g_pTimerThread;		// (LOGINLISTENPORT);
+
 extern CAccount			g_cDatabase;
 extern bool				g_bEnableLogin;
 

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "typedef.h"
 #include "I_Shell.h"
 #include "SocketThread.h"
 #include "MessagePort.h"

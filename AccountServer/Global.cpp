@@ -56,6 +56,14 @@ void	PrintText(const char * szFormat, ...)
 	strcat(s_bufText, "】\r\n");
 }
 
+const char* getCurrTimeString()
+{
+	static char szCurrTime[60];
+	FormatDateTime(szCurrTime, "[%04d-%02d-%02d %02d:%02d:%02d]: ", time(NULL));		// szFormat: 
+	return szCurrTime;
+}
+
+
 bool	LockedGetText(char * buf)
 {
 //	CSingleLock xLock(&s_xCtrl, true);
@@ -108,7 +116,11 @@ time_t		g_tStartServerTime = 0;
 
 CPointThread *	g_pPointThread = NULL;		//?? 必须先定义(POINTLISTENPORT);
 CLoginThread *	g_pLoginThread = NULL;		//?? 要调用上一个类(LOGINLISTENPORT);
+CTimerThread *	g_pTimerThread = NULL;		//  
+
 COnlineTable *	g_pOnlineTable = NULL;		// 在线玩家表
+
+
 CAccount		g_cDatabase;
 bool			g_bEnableLogin = false;		//?? 可改为SHARE共享变量
 

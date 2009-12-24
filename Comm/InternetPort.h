@@ -5,7 +5,6 @@
 #pragma warning(disable:4786)
 
 #define	_WINSOCKAPI_
-#include <afxmt.h>
 #ifndef FD_SETSIZE
 #define	FD_SETSIZE					110	//? 可修改以增加节点数
 #endif

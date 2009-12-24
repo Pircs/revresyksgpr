@@ -170,7 +170,7 @@ void CUser::SendShow(CUser* pTarget)
 	// msg
 	TeamMemberInfo	info;
 	info.id			= pTarget->GetID();
-	info.dwLookFace	= pTarget->GetLookFace();
+	info.usLookFace	= pTarget->GetLookFace();
 	info.usHp		= pTarget->GetLife();
 	info.usMaxHp	= pTarget->GetMaxLife();
 	strcpy(info.szName, pTarget->GetName());
@@ -182,7 +182,7 @@ void CUser::SendShow(CUser* pTarget)
 		if(pMember)
 		{
 			info.id			= pMember->GetID();
-			info.dwLookFace	= pMember->GetLookFace();
+			info.usLookFace	= pMember->GetLookFace();
 			info.usHp		= pMember->GetLife();
 			info.usMaxHp	= pMember->GetMaxLife();
 			strcpy(info.szName, pMember->GetName());
@@ -236,7 +236,7 @@ bool CUser::SendInfo(SOCKET_ID idSocket, OBJID idAgent)
 	// msg
 	TeamMemberInfo	info;
 	info.id			= this->GetID();
-	info.dwLookFace	= this->GetLookFace();
+	info.usLookFace	= this->GetLookFace();
 	info.usHp		= this->GetLife();
 	info.usMaxHp	= this->GetMaxLife();
 	strcpy(info.szName, this->GetName());

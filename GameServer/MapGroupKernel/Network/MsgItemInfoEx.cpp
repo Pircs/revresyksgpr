@@ -15,12 +15,12 @@ bool CMsgItemInfoEx::Create(CItem* pItem, OBJID idOwner, int nCost, int nAction 
 	m_idOwner			= idOwner;
 	m_dwPrice			= nCost;
 	m_ucPosition			= info.nPosition;
-	m_ucIdent			= _ITEM_STATUS_NOT_IDENT;
+	m_ucStatus			= _ITEM_STATUS_NOT_IDENT;
 	if(!pItem->IsNeedIdent())
 	{
 		m_usAmount			= info.nAmount;
 		m_usAmountLimit		= info.nAmountLimit;
-		m_ucIdent			= info.nIdent;
+		m_ucStatus			= info.nIdent;
 		m_ucGem1				= info.nGem1;
 		m_ucGem2				= info.nGem2;
 		m_ucMagic1			= info.nMagic1;
