@@ -1,4 +1,4 @@
-#include <afxmt.h>
+//#include <afxmt.h>
 #define	LOCKOBJ		CSingleLock xLock(&s_xCtrl, true)
 
 #include <WinSock2.h>

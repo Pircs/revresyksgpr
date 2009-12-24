@@ -1,9 +1,6 @@
-// NpcServerDlg.h : header file
-//
-
 #pragma once
 
-#include <afxmt.h>
+//#include <afxmt.h>
 #include "KernelThread.h"
 #include "Timeout.h"
 #include "InternetPort.h"

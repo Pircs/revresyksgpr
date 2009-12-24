@@ -17,6 +17,20 @@
 
 #include <iostream>
 
+
+typedef	CMyStack<const char*>	DEADLOOP;
+typedef	Array<DEADLOOP>		DEADLOOP_SET;
+DEADLOOP_SET	g_setDeadLoop;
+inline DEADLOOP_SET&	DeadLoopSet() { return g_setDeadLoop; }///////
+ST_CONFIG		CONFIG;	
+///////
+struct STAT_STRUCT	g_stat = {0};
+long				g_nRestart		= false;
+long				g_nServerClosed = false;
+
+long				s_nDatabaseTimeSum;
+
+
 CTimerThread::CTimerThread() 
 		: CThreadBase()
 {
@@ -25,6 +39,14 @@ CTimerThread::CTimerThread()
 
 	m_nAllPlayers	= 0;
 	m_nMaxPlayers	= 0;
+
+	/////////////////////////////////
+	m_nState		= SHELLSTATE_NONE;
+	m_nTextLines	= 0;
+	m_pMsgPort		= NULL;
+	m_pInterPort		= NULL;
+
+	m_hMutexThread	= NULL;
 }
 
 CTimerThread::~CTimerThread()
@@ -36,6 +58,7 @@ void	CTimerThread::OnInit()
 {
 	LOCKTHREAD;
 	try{
+		OnInitDialog();
 
 	}catch(...) { LOGCATCH("登录线程初始化异常退出"); }
 }
@@ -84,16 +107,16 @@ bool CTimerThread::ProcessInterMsg()
 			case	QUERY_STATUS:
 				{
 					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_TITLE, STRING_TYPE(m_szServer), m_szServer);
-					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_SHELLMSG, STRING_TYPE(m_sShellState), m_sShellState);
-					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_KERNELMSG, STRING_TYPE(m_sKernelState), m_sKernelState);
-					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_TEXT, STRING_TYPE(m_sText), m_sText);
+					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_SHELLMSG, STRING_TYPE(m_sShellState.c_str()), m_sShellState.c_str());
+					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_KERNELMSG, STRING_TYPE(m_sKernelState.c_str()), m_sKernelState.c_str());
+					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_TEXT, STRING_TYPE(m_sText.c_str()), m_sText.c_str());
 				}
 				break;
 			case	QUERY_COMMOND:
 				{
 					LPCTSTR pStr = (LPCTSTR)buf;
-					CString str;
-					str.Format("【remote】%s", pStr);
+					std::string str= "【remote】";
+					str+=pStr;
 					PrintText(str);
 					m_pMsgPort->Send(MSGPORT_WORLD, WORLD_SHELLTALK, STRING_TYPE(pStr), pStr);
 				}
@@ -141,7 +164,7 @@ bool	CTimerThread::OnProcess()
 #endif
 
 			static	int nLock = 0;
-			if(nIDEvent == 1 && nLock <= 0)
+			if(/*nIDEvent*/nLock <= 0)
 			{
 				nLock++;	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 				//!!! Can't use 'return' in this block
@@ -244,7 +267,7 @@ bool	CTimerThread::OnProcess()
 								m_nMaxPlayers = m_stat.nMaxPlayers;
 
 							// update
-							m_sShellState.Format("start server: %s\r\n"
+							/*m_sShellState.Format("start server: %s\r\n"
 								"current: %s\r\n\r\n"
 								"socket thread: %3d(max:%d)\r\n"
 								"world thread:  %3d(max:%d)\r\n"
@@ -283,14 +306,14 @@ bool	CTimerThread::OnProcess()
 								, m_stat.nLoginPlayers, m_stat.nLogoutPlayers
 								, m_stat.nSocketBytes/nSecsPerUpdate, m_stat.nSocketPackets/nSecsPerUpdate
 								, m_stat.nNpcSocketBytes/nSecsPerUpdate, m_stat.nNpcSocketPackets/nSecsPerUpdate
-								);
-							UpdateData(false);
+								);*/
+							//UpdateData(false);
 							FILE* pFile = fopen(ONLINE_FILENAME, "wt");
 							if(pFile)
 							{
-								fprintf(pFile, m_sShellState);
+								fprintf(pFile, m_sShellState.c_str());
 								fprintf(pFile, "\n\n");
-								fprintf(pFile, m_sKernelState);
+								fprintf(pFile, m_sKernelState.c_str());
 								fclose(pFile);
 							}
 						}
@@ -384,7 +407,7 @@ bool	CTimerThread::OnProcess()
 					break;
 				case	SHELLSTATE_END:
 					{
-						KillTimer(1);
+					//	KillTimer(1);
 #ifdef	DEBUG_MULTITHREAD
 						if(m_hMutexThread)
 						{
@@ -394,10 +417,10 @@ bool	CTimerThread::OnProcess()
 #endif
 						Sleep(3000);
 
-						if(g_nRestart)
-							::ShellExecute(m_hWnd, NULL, AfxGetAppName(), NULL, NULL, SW_SHOWNORMAL);
+					//	if(g_nRestart)
+					//		::ShellExecute(m_hWnd, NULL, AfxGetAppName(), NULL, NULL, SW_SHOWNORMAL);
 
-						CDialog::OnOK();
+				//		CDialog::OnOK();
 					}
 					break;
 				default:
@@ -422,16 +445,154 @@ bool	CTimerThread::OnProcess()
 void	CTimerThread::OnDestroy()
 {
 	try{
+		m_nState	= SHELLSTATE_CLOSING;
+		PrintText("Server closing...");
 		LOGMSG("登录线程正常关闭");
 
 	}catch(...) { LOGCATCH("登录线程关闭时异常退出"); }
 }
 
+BOOL CTimerThread::OnInitDialog()
+{
+	memset(&g_stat, 0, sizeof(g_stat));
+	DateTime(m_szStartServer, time(NULL));
+
+	m_hMutexServer = ::CreateMutex(NULL, false, "ConquerServer");
+	if (m_hMutexServer)
+	{
+		if (ERROR_ALREADY_EXISTS == ::GetLastError())
+		{
+			::ReleaseMutex(m_hMutexServer);
+			::CloseHandle(m_hMutexServer);
+			m_hMutexServer = NULL;
+			std::cout<<"Repeat run game server!"<<endl;
+			//MessageBox("Repeat run game server!");
+		//	this->EndDialog(-1);
+			return false;
+		}
+	}
+	else
+	{
+		std::cout<<"Create mutex failed!"<<endl;
+		//MessageBox("Create mutex failed!");
+	//	this->EndDialog(-1);
+		return false;
+	}
+
+#ifdef	DEBUG_MULTITHREAD
+	m_hMutexThread    =::CreateMutex(NULL, false, "FW_DEBUG_MULTITHREAD");
+	if(!m_hMutexThread)
+	{
+		PrintText("Create mutex handle failed!");
+		return false;
+	}
+#endif
+	if(!LoadConfigIni())
+	{
+		std::cout<<"Load config.ini failed!"<<endl;
+		//MessageBox("Load config.ini failed!");
+	}
+	else if(!CMessagePort::InitPortSet(MSGPORT_MAPGROUP_FIRST + CONFIG.MAPGROUP_SIZE))
+	{
+		std::cout<<"Initial intra message port failed!"<<endl;
+		//MessageBox("Initial intra message port failed!");
+	}
+	else
+	{
+		m_pMsgPort = CMessagePort::GetInterface(MSGPORT_SHELL);
+		m_pMsgPort->Open();
+		m_nState	= SHELLSTATE_INIT;
+
+		if(CONFIG.CURRENT_PORTID)
+		{
+			m_pInterPort = CInternetPort::CreateNew(CONFIG.CURRENT_PORTID, CONFIG.PORT_SIZE, CONFIG.MASTER_IP, CONFIG.MASTER_PORT, CONFIG.LOGIN_KEY);
+			if(m_pInterPort)
+				m_pInterPort->Open();
+		}
+	}
+
+	// dead loop init
+	for(int i = 0; i < CONFIG.MAPGROUP_SIZE + MSGPORT_MAPGROUP_FIRST; i++)
+		DeadLoopSet().Push(DEADLOOP());
+
+	// get game title
+	CIniFile	ini("shell.ini", "AccountServer");
+	ini.GetString(m_szServer, "SERVERNAME", _MAX_NAMESIZE);
+
+	// windows title
+	//CString strTitle;
+	//strTitle.Format("%s - %s (%s %s)", GAME_TITLE, m_szServer, __DATE__, __TIME__);
+	//SetWindowText(strTitle);
+
+	// init log file
+	CreateDirectory(LOGFILE_DIR, NULL);
+	//InitLog(strTitle, LOGFILE_FILENAME, time(NULL));
+	LOGMSG("\n\n\n=================================================================");
+//	LOGMSG(strTitle);
+	LOGMSG("=================================================================");
 
 
+	return TRUE; 
+}
 
+void CTimerThread::Send(const std::string& strCmd) 
+{
+	if(m_pMsgPort)
+	{
+		m_sText =strCmd;
+		m_pMsgPort->Send(MSGPORT_WORLD, WORLD_SHELLTALK, STRING_TYPE((LPCTSTR)strCmd.c_str()), (LPCTSTR)strCmd.c_str());
+	}
+}
 
+void CTimerThread::PrintText(const std::string& szMsg)
+{
+	if(m_nTextLines >= TEXTWINDOW_SIZE)
+	{
+		//int nPos = m_sText.Find("\n", 0);
+		//if(nPos != -1)
+			m_sText = "";//m_sText.Mid(nPos + 1);
+	}
 
+	char	buf[20];
+	DateTime(buf);
+	m_sText += buf+11;
+	m_sText += "【";
+	m_sText += szMsg;
+	m_sText += "】";
+	m_sText += "\r\n";
+	m_nTextLines++;
+
+	LOGMSG("SHELL: %s", szMsg);
+}
+
+bool CTimerThread::LoadConfigIni()
+{
+	CIniFile	ini(CONFIG_FILENAME, "System");
+
+	// 初值
+	CONFIG.MAPGROUP_SIZE	= 0;
+	CONFIG.CURRENT_PORTID	= 0;
+	CONFIG.PORT_SIZE		= 0;
+	CONFIG.MASTER_IP[0]		= 0;
+	CONFIG.MASTER_PORT		= 0;
+	CONFIG.LOGIN_KEY[0]		= 0;
+
+	// 读入
+	CONFIG.MAPGROUP_SIZE	= ini.GetInt("MAPGROUP_SIZE");
+	if(CONFIG.MAPGROUP_SIZE == 0)
+		return false;
+
+	ini.SetSection("InternetPort");
+	CONFIG.CURRENT_PORTID	= ini.GetInt("CURRENT_PORTID");
+	CONFIG.PORT_SIZE		= ini.GetInt("PORT_SIZE");
+	ini.GetString(CONFIG.MASTER_IP, "MASTER_IP", IPSTR_SIZE);
+	CONFIG.MASTER_PORT		= ini.GetInt("MASTER_PORT");
+	ini.GetString(CONFIG.LOGIN_KEY, "LOGIN_KEY", 256);
+	if(CONFIG.MAPGROUP_SIZE == 0)
+		return false;
+
+	return true;
+}
 
 
 
