@@ -12,7 +12,7 @@ long	g_nMessagePortErrorCount;
 // 初始化，设置接口ID号，开始接收消息。可重复调用(PORT_ID不能改变)。
 bool CMessagePort::Open	()
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	m_nState = STATE_OK;
 	for(MSG_SET::iterator iter = m_setMsg.begin(); iter != m_setMsg.end(); iter++)
@@ -25,7 +25,7 @@ bool CMessagePort::Open	()
 // 发送消息到指定接口。包含消息ID、数据类型、数据。
 bool CMessagePort::Send	(int nPort, int nPacket, VAR_TYPE nVarType, const void* buf)
 {
-	LOCKOBJ;		//VVVVV
+	LOCK_THREAD;
 
 	ASSERT(buf);
 
@@ -41,14 +41,14 @@ bool CMessagePort::Send	(int nPort, int nPacket, VAR_TYPE nVarType, const void* 
 		return false;
 	}
 
-	UNLOCKOBJ;		//AAAAA ★调用外部接口，释放互斥。必须释放，否则死锁★
+	UNLOCK_THREAD;		//AAAAA ★调用外部接口，释放互斥。必须释放，否则死锁★
 
 	return m_setPort[nPort]->PushMsg(m_id, nPacket, nVarType, buf);
 }
 // 接收指定接口(或所有接口)发来的消息。可指定消息ID，也可不指定。
 bool CMessagePort::Recv	(int nPort, int nPacket, VAR_TYPE nVarType, void* buf, CMessageStatus* pStatus /*= NULL*/)	// return false: 没数据
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	ASSERT(buf);
 
@@ -89,7 +89,7 @@ bool CMessagePort::Recv	(int nPort, int nPacket, VAR_TYPE nVarType, void* buf, C
 // 接收指定接口(或所有接口)发来的消息。可指定消息ID，也可不指定。return false: 超时或错误。
 bool CMessagePort::WaitMsg(int nMilliSec)
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	if(m_nState == STATE_CLOSED)
 		return false;
@@ -99,7 +99,7 @@ bool CMessagePort::WaitMsg(int nMilliSec)
 		return true;
 	::ResetEvent(m_hHaveMsg);		// 因为PushMsg()的SetEvent是在LOCK状态调用的，size()和Event有原子性，无共享冲突。
 
-	UNLOCKOBJ;		//AAAAA ★等待其它线程的SEND()调用，释放互斥。必须释放，否则死锁★
+	UNLOCK_THREAD;		//AAAAA ★等待其它线程的SEND()调用，释放互斥。必须释放，否则死锁★
 
 	DWORD	ret = ::WaitForSingleObject(m_hHaveMsg, nMilliSec);
 	if(ret == WAIT_OBJECT_0)
@@ -108,7 +108,7 @@ bool CMessagePort::WaitMsg(int nMilliSec)
 	}
 	if(ret == WAIT_ABANDONED)
 	{
-		LOCKOBJ;		//? 内部调用，锁定
+		LOCK_THREAD;		//? 内部调用，锁定
 		Close();		// 本地函数，不用打开互斥锁
 		return false;
 	}
@@ -121,7 +121,7 @@ bool CMessagePort::WaitMsg(int nMilliSec)
 // 关闭接口，不再接收消息。可重复调用。
 bool CMessagePort::Close()
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	m_nState = STATE_CLOSED;
 
@@ -149,7 +149,7 @@ int CMessagePort::SIZE_OF_TYPE(int type)
 
 bool CMessagePort::PushMsg(int nPort, int nPacket, VAR_TYPE nVarType, const void* buf)	// nData中的串和结构都会被COPY
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	ASSERT(buf);
 
@@ -297,4 +297,4 @@ void CMessagePort::ClearPortSet()
 }
 
 CMessagePort::PORT_SET CMessagePort::m_setPort;
-CRITSECT CMessagePort::m_xSetCtrl;			// 用于m_setPort互斥
+//LOCK_DECLARATION(CMessagePort);			// 用于m_setPort互斥

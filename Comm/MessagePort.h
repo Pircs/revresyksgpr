@@ -3,11 +3,12 @@
 #pragma once
 #pragma warning(disable:4786)
 #include "winsock2.h"
+#include "ThreadSafety.h"
 #include "I_MessagePort.h"
 #include "T_MyQueue.h"
 #include <list>
 #include <vector>
-using namespace std;
+
 
 // 通用定义
 MSGPORT_BEGIN
@@ -20,29 +21,21 @@ struct	CMessagePacket
 	char	m_bufData[MAX_MSGPACKSIZE];
 };
 
-// #define	CRITSECT	CCriticalSection
-// #define LOCKOBJ		CSingleLock xLock(&m_xCtrl, true)
-// #define UNLOCKOBJ	xLock.Unlock()
-
-#define	CRITSECT	int
-#define LOCKOBJ	
-#define UNLOCKOBJ
-
 MSGPORT_END///////////////////////////
 ///////////////////////////
 class	CMessagePort : private IMessagePort
 {
 protected:
-	CMessagePort			(int nPort) { LOCKOBJ; m_id = nPort; m_nState = STATE_CLOSED; m_hHaveMsg = NULL; }
+	CMessagePort			(int nPort) { LOCK_THREAD; m_id = nPort; m_nState = STATE_CLOSED; m_hHaveMsg = NULL; }
 	virtual ~CMessagePort	() { Clear(); }
 
-	IMessagePort*	GetInterface() { LOCKOBJ; return (IMessagePort*)this; }
+	IMessagePort*	GetInterface() { LOCK_THREAD; return (IMessagePort*)this; }
 
 protected: // Interface
-	virtual bool	IsOpen	() { LOCKOBJ; return m_nState == STATE_OK; }
+	virtual bool	IsOpen	() { LOCK_THREAD; return m_nState == STATE_OK; }
 
 	// 取本接口的ID号
-	virtual int		GetID	() { LOCKOBJ; return m_id; }
+	virtual int		GetID	() { LOCK_THREAD; return m_id; }
 	virtual int		GetSize	() { return m_setPort.size(); }
 
 	// 初始化，设置接口ID号，开始接收消息。可重复调用(PORT_ID不能改变)。
@@ -76,7 +69,7 @@ protected:
 	int			m_nState;
 	typedef	list<message_port::CMessagePacket*>	MSG_SET;			//?? 可进行回收
 	MSG_SET		m_setMsg;
-	CRITSECT	m_xCtrl;								// 用于m_setMsg互斥
+	LOCK_DECLARATION;									// 用于m_setMsg互斥
 	HANDLE		m_hHaveMsg;								// 有事件时为有通知
 	int			m_debugPackets;
 	CMyQueue<message_port::CMessagePacket*>		m_setRecycle;
@@ -106,7 +99,7 @@ public:
 protected: //static
 	typedef	vector<CMessagePort*> PORT_SET;			// “静态”表，运行期间不修改。
 	static PORT_SET		m_setPort;
-	static CRITSECT		m_xSetCtrl;					// 用于m_setPort互斥
+	//static LOCK_DECLARATION;					// 用于m_setPort互斥
 };
 
 

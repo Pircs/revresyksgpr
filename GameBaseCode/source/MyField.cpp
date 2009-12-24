@@ -1,12 +1,3 @@
-
-#ifdef	MULTITHREAD_SAFE
-	#include <afxmt.h>
-	#define	LOCKOBJ		CSingleLock xLock(&m_xCtrl, true)
-	#include <winsock2.h>
-#else
-	#define	LOCKOBJ		
-#endif
-
 #include <windows.h>
 #include <stdio.h>
 #include <assert.h>

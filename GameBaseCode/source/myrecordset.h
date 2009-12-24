@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ThreadSafety.h"
 #include <string>
 #include <map>
 class CCriticalSection;
@@ -47,9 +47,7 @@ protected: // record
 	virtual bool	AddInt		(LPCTSTR szField, int nData)		{ return AddField(szField, nData); }
 
 public:
-#ifdef	MULTITHREAD_SAFE
-	static CCriticalSection	m_xCtrl;
-#endif
+	LOCK_DECLARATION;
 #ifdef	USE_NEW
 	static CMyHeap	s_heapString;
 #endif

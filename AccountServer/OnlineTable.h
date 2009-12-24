@@ -1,15 +1,8 @@
 #pragma once
-
 #include "T_Index.h"
 #include "string"
 
-#undef	LOCKTHREAD		// i dont know how to use it
-#define	LOCKTHREAD
-
-using namespace std;
-
 enum { c_typeNone = 0, c_typePoint, c_typeTime, c_typeNetBarPoint, c_typeNetBarTime, c_typeISP, c_typeFree, c_typeAll };
-
 class COnlineAccount
 {
 public:
@@ -84,14 +77,14 @@ public:
 	int 	EndFee(OBJID idAccount, const char* pszServerName, bool bOffline);			//? 同时删除成员	// return -n: 服务器不匹配
 	int		PointFee(OBJID idAccount, const char* pszServerName);		// return -n: 服务器不匹配
 	int		GetPlayerCount(LPCTSTR pszServerName = NULL){
-		LOCKTHREAD; 
+		LOCK_THREAD; 
 		if(pszServerName == NULL) return m_nCount;
 		else return m_aPlayerCount[pszServerName];
 	}
 	SERIAL_INDEX*	GetSerialSet()			{ return &m_aSerialCount; }
 	void	SetPassword(OBJID idAccount, const char * szPassword)		// 用于补登的玩家重登录时添加口令
 	{ 
-		LOCKTHREAD; 
+		LOCK_THREAD; 
 		int	nIndex = FindIndex(idAccount);
 		if(nIndex && strlen(szPassword) < _MAX_PSWSIZE)
 			strcpy(m_pAccount[nIndex].m_szPassword, szPassword); 
@@ -100,7 +93,7 @@ public:
 	}
 	void	SetSerial(OBJID idAccount, DWORD dwSerial)		// 用于补登序列号
 	{ 
-		LOCKTHREAD; 
+		LOCK_THREAD; 
 		int	nIndex = FindIndex(idAccount);
 		if(nIndex && dwSerial < 10000)				// serial 不大于9999
 		{
@@ -110,9 +103,9 @@ public:
 		else
 			LOGERROR("SetSerial([%d]) 异常", dwSerial);
 	}
-	bool	IsOnline(OBJID idAccount) { LOCKTHREAD; return FindIndex(idAccount) != 0; }
+	bool	IsOnline(OBJID idAccount) { LOCK_THREAD; return FindIndex(idAccount) != 0; }
 	bool	IsTimeWait(OBJID idAccount) {
-		LOCKTHREAD;
+		LOCK_THREAD;
 		int nIndex = FindIndex(idAccount);
 		return nIndex && m_pAccount[nIndex].m_tTimeWait;
 	}
@@ -129,7 +122,7 @@ protected:
 	int					m_nCount;
 	CIndex<string, int, 0>	m_aPlayerCount;
 	SERIAL_INDEX	m_aSerialCount;
-	//CCriticalSection	m_xCtrl;
+	LOCK_DECLARATION;
 private:
 	int		FindIndex(const char * szLoginName);		// return 0: ERROR
 	int		FindIndex(OBJID idAccount);					// return 0: ERROR

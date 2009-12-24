@@ -17,20 +17,17 @@ CTimerThread::~CTimerThread()
 // 该线程类没有外部消息进入，没有共享冲突
 void	CTimerThread::OnInit()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 	try{
 
 	}catch(...) { LOGCATCH("登录线程初始化异常退出"); }
 }
 
-bool	CTimerThread::OnProcess()
+bool CTimerThread::OnProcess()
 {
-	LOCKTHREAD;
-
+	Sleep(1000);
+	LOCK_THREAD;
 	try{
-		for(;;)
-		{
-			Sleep(1000);
 			// 清理在线表
 			g_pOnlineTable->RemoveOvertime();
 
@@ -264,8 +261,6 @@ bool	CTimerThread::OnProcess()
 						g_pPointThread->LogSerialCount();
 				}catch(...){ LOGCATCH("写COUNT.TXT"); }
 			}
-		}
-
 		return true;
 	}catch(...) { 
 		LOGCATCH("登录线程主循环异常，仍坚持运行中。"); 

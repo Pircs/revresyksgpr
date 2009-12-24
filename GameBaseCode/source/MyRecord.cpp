@@ -1,13 +1,5 @@
 // œ…Ω£–ﬁ£¨2002.9.12
 
-#ifdef	MULTITHREAD_SAFE
-	#include <afxmt.h>
-	#define	LOCKOBJ		CSingleLock xLock(&m_xCtrl, true)
-	#include <winsock2.h>
-#else
-	#define	LOCKOBJ		
-#endif
-
 //#ifdef	MULTITHREAD_SAFE
 //#define	LOCKADD_TIMESUM
 //#else

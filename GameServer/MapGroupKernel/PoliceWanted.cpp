@@ -1,6 +1,3 @@
-//#include <afxmt.h>
-#define	LOCKOBJ		CSingleLock xLock(&s_xCtrl, true)
-
 #include <WinSock2.h>
 #include "AllMsg.h"
 #include "User.h"
@@ -8,7 +5,7 @@
 #include "PoliceWanted.h"
 
 // static
-CCriticalSection	CPoliceWanted::s_xCtrl;
+CMyCriticalSection	CPoliceWanted::CRITICAL_SECTION_VARIABLE;
 CPoliceWanted		CPoliceWanted::s_objPoliceWanted;
 
 CPoliceWanted& PoliceWanted(void) { return CPoliceWanted::s_objPoliceWanted; }
@@ -46,7 +43,7 @@ bool CPoliceWanted::AddWanted	(CUser* pUser)
 
 
 	// add info with decrease order
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	int nSize = m_setWanted.size();
 	int i;
@@ -67,7 +64,7 @@ bool CPoliceWanted::AddWanted	(CUser* pUser)
 
 bool CPoliceWanted::DelWanted	(OBJID idUser)
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	IF_NOT (ID_NONE != idUser)
 		return false;
@@ -87,7 +84,7 @@ bool CPoliceWanted::DelWanted	(OBJID idUser)
 
 PoliceWantedStruct*	CPoliceWanted::GetWantedByIndex	(int idx)
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 	
 	if (!(idx >= 0 && idx < m_setWanted.size()))
 		return NULL;
@@ -97,7 +94,7 @@ PoliceWantedStruct*	CPoliceWanted::GetWantedByIndex	(int idx)
 
 PoliceWantedStruct*	CPoliceWanted::GetWanted(OBJID idUser)
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	if (ID_NONE == idUser)
 		return NULL;

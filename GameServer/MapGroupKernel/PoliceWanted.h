@@ -1,9 +1,8 @@
 
 #pragma once
-
+#include "ThreadSafety.h"
 #include <deque>
 #include <string>
-using namespace std;
 
 typedef struct {
 	OBJID		idUser;
@@ -35,9 +34,8 @@ public:
 
 protected:
 	deque<PoliceWantedStruct> m_setWanted;
-
 	// static 
-	static CCriticalSection		s_xCtrl;
+	static LOCK_DECLARATION;
 };
 
 extern CPoliceWanted& PoliceWanted(void);

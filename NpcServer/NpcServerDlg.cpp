@@ -254,7 +254,7 @@ void CNpcServerDlg::OnCancel()
 
 void CNpcServerDlg::PrintText(LPCTSTR szMsg)			// ºËÐÄ¿Éµ÷ÓÃ
 {
-	LOCKTHREAD;		// m_sUpdate»¥³â
+	LOCK_THREAD;		// m_sUpdate»¥³â
 
 	m_sUpdate	+= "¡¾";
 	m_sUpdate	+= szMsg;
@@ -282,21 +282,20 @@ void CNpcServerDlg::PrintText(LPCTSTR szMsg)			// ºËÐÄ¿Éµ÷ÓÃ
 
 void CNpcServerDlg::CloseAll()
 {
-//	LOCKTHREAD;
-
+	LOCK_THREAD;
 	m_nState	= STATE_CLOSING;
 }
 
 void CNpcServerDlg::SetState(LPCTSTR szMsg)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	m_sKernel = szMsg;
 }
 
 void CNpcServerDlg::ChangeEncrypt(DWORD nKey)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;;
 
 	//@
 }
@@ -340,7 +339,7 @@ void CNpcServerDlg::OnTimer(UINT nIDEvent)
 						LOGMSG(m_sKernel);
 					}
 
-					LOCKTHREAD;
+					LOCK_THREAD;
 					UpdateData(false);
 				}
 
@@ -405,7 +404,7 @@ void CNpcServerDlg::ShowText()
 {
 	if(!m_sUpdate.IsEmpty())
 	{
-		LOCKTHREAD;		// m_sUpdate»¥³â
+		LOCK_THREAD;		// m_sUpdate»¥³â
 
 		if(m_ctlText.GetLineCount() > MAX_TEXTLINESIZE)
 		{
@@ -457,7 +456,7 @@ bool CNpcServerDlg::ProcessInterMsg()
 				m_pInterPort->Send(cStatus.m_nPortFrom, ACK_SHELLMSG, STRING_TYPE(m_sShell), (LPCTSTR)m_sShell);
 				m_pInterPort->Send(cStatus.m_nPortFrom, ACK_KERNELMSG, STRING_TYPE(m_sKernel), (LPCTSTR)m_sKernel);
 
-				LOCKTHREAD;		// m_sUpdate»¥³â
+				LOCK_THREAD;		// m_sUpdate»¥³â
 				m_pInterPort->Send(cStatus.m_nPortFrom, ACK_TEXT, STRING_TYPE(m_sText), m_sText);
 			}
 			break;

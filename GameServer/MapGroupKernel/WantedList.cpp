@@ -1,10 +1,7 @@
-//#include <afxmt.h>
-#define	LOCKOBJ		CSingleLock xLock(&s_xCtrl, true)
-
 #include "WantedList.h"
 #include "i_mydb.h"
 
-CCriticalSection	CWantedList::s_xCtrl;
+CMyCriticalSection	CWantedList::CRITICAL_SECTION_VARIABLE;
 CWantedList CWantedList::s_WantedList;
 
 char	szWantedTable[] = _TBL_WANTED;
@@ -91,7 +88,7 @@ bool CWantedList::Create(IDatabase* pDb)
 
 bool CWantedList::AddWanted (const char* pszTarget, const char* pszPayer, DWORD dwBonuty)
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	IF_NOT (pszTarget && pszPayer)
 		return false;
@@ -139,7 +136,7 @@ bool CWantedList::AddWanted (const char* pszTarget, const char* pszPayer, DWORD 
 
 CWantedData* CWantedList::GetWanted	(OBJID id)
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	if (ID_NONE == id)
 		return NULL;
@@ -157,7 +154,7 @@ CWantedData* CWantedList::GetWanted	(OBJID id)
 
 CWantedData* CWantedList::GetWantedByIndex	(int idx)
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	if (idx < 0 || idx >= m_setWanted.size())
 		return NULL;
@@ -167,7 +164,7 @@ CWantedData* CWantedList::GetWantedByIndex	(int idx)
 
 CWantedData* CWantedList::GetWantedByName	(const char* pszName)
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	if (!pszName)
 		return NULL;
@@ -188,7 +185,7 @@ CWantedData* CWantedList::GetWantedByName	(const char* pszName)
 
 bool CWantedList::DelWanted	(OBJID id)
 {
-	LOCKOBJ;
+	LOCK_THREAD;
 
 	if (ID_NONE == id)
 		return false;

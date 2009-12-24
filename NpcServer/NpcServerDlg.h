@@ -45,7 +45,7 @@ public: // interface
 
 // Implementation
 protected:
-	CCriticalSection m_xCtrl;
+	LOCK_DECLARATION;
 	CString			m_sUpdate;
 	HANDLE			m_hMutexServer;
 	CTimeOut		m_tUpdateStateWin;

@@ -88,5 +88,3 @@ bool	GetServerAccount();
 
 #undef	ASSERT
 #define	ASSERT(x)	{if(!(x)) LOGERROR("ASSERT(" #x ") in %d line of %s", __LINE__, __FILE__); }
-//#define LOCKTHREAD		CSingleLock(&m_xCtrl, true)			°Ô”–¥ÛBUG
-#define LOCKTHREAD		CSingleLock xLock(&m_xCtrl, true); ASSERT(xLock.IsLocked());

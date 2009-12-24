@@ -190,12 +190,9 @@ BOOL OnInitDialog()
 		return true;
 	}
 
-	//SetTimer(NULL,1, 1000, NULL);
-	//LOGMSG("SetTimer 启动完毕!");
-	//std::cout<<getCurrTimeString()<<"SetTimer 启动完毕!"<<endl;
 
 	LOGMSG("启动完毕，程序正常运行中-------------------------------------");
-	std::cout<<getCurrTimeString()<<"启动完毕，程序正常运行中-------------------------------------"<<endl;
+	std::cout<<getCurrTimeString()<<"启动完毕，程序正常运行中------"<<endl;
 
 	if(g_bEnableLogin)
 	{
@@ -209,18 +206,6 @@ BOOL OnInitDialog()
 	}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
-}
-
-void OnTimer(UINT nIDEvent) 
-{
-	// TODO: Add your message handler code here and/or call default
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
-
-}
-
-void OnEnableLogin() 
-{
-	g_bEnableLogin = true;
 }
 
 void OnClose()

@@ -1,9 +1,7 @@
 // 登录线程类
 // 仙剑修，2001.11.20
-
 #include "AllHeads.h"
 #include "LoginThread.h"
-
 
 #undef	LOCKTHREAD		// 登录线程不需要互斥★
 #define	LOCKTHREAD
@@ -12,27 +10,20 @@ CLoginThread::CLoginThread(u_short nPort)
 		: CThreadBase(), m_cListenSocket(nPort)
 {
 	LOCKTHREAD;
-
 	m_pBanIPs = new CBanIP[MAXBANIPS];
 }
 
 CLoginThread::~CLoginThread()
 {
 	LOCKTHREAD;
-
 	delete m_pBanIPs;
 }
 
-//#define	CRITSECT	//	CSingleLock(&m_xCtrl, true);
-
-//#define	LOCK	//?	{CSingleLock(&m_xCtrl, true);
-//#define	UNLOCK	//?	}
 
 // 该线程类没有外部消息进入，没有共享冲突
 void	CLoginThread::OnInit()
 {
 	LOCKTHREAD;
-
 	try{
 		m_cRc5.Rc5InitKey(RC5PASSWORD_KEY);
 		m_cRc5NetBar.Rc5InitKey(RC5BARPASSWORD_KEY);
@@ -46,7 +37,6 @@ void	CLoginThread::OnInit()
 bool	CLoginThread::OnProcess()
 {
 	LOCKTHREAD;
-
 	try{
 		time_t	tStart = clock();
 		long	nUsed = 0;
@@ -214,7 +204,6 @@ bool	CLoginThread::OnProcess()
 void	CLoginThread::OnDestroy()
 {
 	LOCKTHREAD;
-
 	try{
 		m_cListenSocket.Close();
 		for(int i = 0; i < MAXCONNECTS; i++)

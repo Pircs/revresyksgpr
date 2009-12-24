@@ -1,14 +1,6 @@
 // ÏÉ½£ÐÞ£¬2002.9.12
 // ÏÉ½£ÐÞ ÐÞ¸ÄÓÚ 2003.8.26
 
-#ifdef	MULTITHREAD_SAFE
-	#include <afxmt.h>
-	#define	LOCKOBJ		CSingleLock xLock(&m_xCtrl, true)
-	#include <winsock2.h>
-#else
-	#define	LOCKOBJ		
-#endif
-
 //#ifdef	MULTITHREAD_SAFE
 //#define	LOCKADD_TIMESUM
 //#else

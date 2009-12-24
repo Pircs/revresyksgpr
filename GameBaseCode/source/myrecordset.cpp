@@ -7,14 +7,6 @@ extern	long	s_nDatabaseTimeSum;			//?? 用于统计数据库操作所消耗的时间
 #define	LOCKADD_TIMESUM		::InterlockedExchangeAdd(&s_nDatabaseTimeSum, clock() - tStart)
 //#endif
 
-#ifdef	MULTITHREAD_SAFE
-	#include <afxmt.h>
-	#define	LOCKOBJ		CSingleLock xLock(&m_xCtrl, true)
-	#include <winsock2.h>
-#else
-	#define	LOCKOBJ		
-#endif
-
 #include <windows.h>
 #include <stdio.h>
 #include <assert.h>

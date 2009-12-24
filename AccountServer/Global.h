@@ -1,13 +1,8 @@
 // 全局变量
 // 仙剑修，2001.11.19
-
 #pragma once
-
 #include <vector>
-using namespace std;
-
 extern HANDLE	g_xDatabase;
-
 //////////////////////////////////////////////////////////////////
 // 用于统计
 extern long	s_nSocketCount;

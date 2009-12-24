@@ -407,10 +407,6 @@
 				>
 			</File>
 			<File
-				RelativePath="EncryptClient.h"
-				>
-			</File>
-			<File
 				RelativePath="Global.h"
 				>
 			</File>

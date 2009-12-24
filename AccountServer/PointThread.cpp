@@ -1,10 +1,8 @@
 // PointThread.cpp: 计点线程类
 // 仙剑修：2001.11.20
-
 #include "AllHeads.h"
 #include "PointThread.h"
 #include "Msg.h"
-
 
 CPointThread::CPointThread(u_short nPort, int nSndBuf /*= 0*/)
 			: CThreadBase(), m_cListenSocket(nPort, nSndBuf)
@@ -26,16 +24,10 @@ CPointThread::~CPointThread()
 ///////
 // 共享函数，注意互斥
 
-//#define	LOCK	{LOCKTHREAD;
-//#define	UNLOCK	}
-
-#undef	LOCKTHREAD		// i dont know how to use it
-#define	LOCKTHREAD
-
 // ★使用共享成员变量，必须先锁定。调用外部函数，必须先解锁。
 void	CPointThread::OnInit()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 	try{
 
 		m_cRc5.Rc5InitKey(RC5PASSWORD_KEY);
@@ -47,7 +39,7 @@ void	CPointThread::OnInit()
 
 bool	CPointThread::OnProcess()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	try{
 		time_t	tStart = clock();
@@ -174,7 +166,7 @@ bool	CPointThread::OnProcess()
 
 void	CPointThread::OnDestroy()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 //	LOCK	// VVVVVVVVV
 	try{
@@ -195,7 +187,7 @@ void	CPointThread::OnDestroy()
 // return ERR_NONE: OK
 int	CPointThread::NewLogin(OBJID idAccount, DWORD nAuthenID, const char * szClientIP, const char * pGameServer)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	MsgConnect	cMsg;
 	ASSERT(IPSTRSIZE == MAX_NAMESIZE);
@@ -221,7 +213,7 @@ int	CPointThread::NewLogin(OBJID idAccount, DWORD nAuthenID, const char * szClie
 
 bool	CPointThread::GetServerIP(char * bufIP, const char * pServerName)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int i;
 	for(i = 1; i < MAXGAMESERVERS; i++)	// 保留0，0为错误
@@ -255,7 +247,7 @@ bool	CPointThread::GetServerIP(char * bufIP, const char * pServerName)
 
 int	CPointThread::GetServerState(LPCTSTR szServerName)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int	nIndex = GetServerIndex_0(szServerName);
 	if(nIndex)
@@ -266,7 +258,7 @@ int	CPointThread::GetServerState(LPCTSTR szServerName)
 
 int	CPointThread::GetServerCount()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	bool	nCount = 0;
 	for(int i = 1; i < MAXGAMESERVERS; i++)	// 1: 从1开始。
@@ -280,7 +272,7 @@ int	CPointThread::GetServerCount()
 
 bool CPointThread::CheckHeartbeatAll()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	bool	ret = false;
 	for(int i = 1; i < MAXGAMESERVERS; i++)	// 1: 从1开始。
@@ -296,7 +288,7 @@ bool CPointThread::CheckHeartbeatAll()
 
 /*bool	CPointThread::GetServerName(OBJID idServer, char bufName[SERVERNAMESIZE])
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	ASSERT(bufName);
 
@@ -324,7 +316,7 @@ bool CPointThread::CheckHeartbeatAll()
 
 void	CPointThread::LogCount()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	char	bufTime[20];
 	DateTime(bufTime, time(NULL));
@@ -354,7 +346,7 @@ void	CPointThread::LogCount()
 
 void	CPointThread::LogSerialCount()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	char	bufTime[20];
 	DateTime(bufTime, time(NULL));
@@ -388,7 +380,7 @@ void	CPointThread::LogSerialCount()
 
 void	CPointThread::LogServer()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	char	bufTime[20];
 	DateTime(bufTime, time(NULL));
@@ -412,7 +404,7 @@ void	CPointThread::LogServer()
 
 bool	CPointThread::Kickout(OBJID idAccount)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	char	bufServer[256];
 	if(g_pOnlineTable->GetServerName(idAccount, bufServer))

@@ -1,8 +1,7 @@
 // 登录线程类
 // 仙剑修，2001.11.20
-
+// orz8 
 #pragma once
-
 #include "ThreadBase.h"
 #include "RC5_321216.h"
 #include "Msg.h"
@@ -48,7 +47,6 @@ protected:
 	time_t	m_tLastError;		// 最后一次ERROR时间
 };
 
-
 class CLoginThread : public CThreadBase  
 {
 public:
@@ -72,7 +70,6 @@ private:
 private:
 	CListenSocket	m_cListenSocket;
 	CBanIP *		m_pBanIPs;
-//	CBanIP 		m_pBanIPs[15];
 	CRc5_321216		m_cRc5;
 	CRc5_321216		m_cRc5NetBar;
 };

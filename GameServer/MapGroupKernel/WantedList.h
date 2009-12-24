@@ -1,7 +1,5 @@
-
 #pragma once
-
-#include "windows.h"
+#include "ThreadSafety.h"
 
 #include "define.h"
 #include "GameObj.h"
@@ -34,7 +32,6 @@ typedef	CGameData<WANTEDDATA,szWantedTable,szID>	CWantedData;
 #define _WANTED_ORDERCOST	1000
 #define _BONUTY_TAX			30
 
-class CCriticalSection;
 class IDatabase;
 class IRecordset;
 class CWantedList  
@@ -61,7 +58,7 @@ public:
 
 	// static 
 	static CWantedList	s_WantedList;
-	static CCriticalSection	s_xCtrl;
+	static LOCK_DECLARATION;
 
 // Implementation
 private:

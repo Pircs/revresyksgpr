@@ -80,7 +80,7 @@ void COnlineAccount::Init(int nState,
 // COnlineTable
 COnlineTable::COnlineTable(int nSize)
 { 
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	m_pAccount = new COnlineAccount[nSize]; 
 
@@ -92,7 +92,7 @@ COnlineTable::COnlineTable(int nSize)
 
 COnlineTable::~COnlineTable()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	LOGMSG("在线表析购时剩余[%d]个元素", m_nCount);
 #ifdef	TEST_INDEX
@@ -145,7 +145,7 @@ COnlineTable::~COnlineTable()
 bool	COnlineTable::GetAttr(const char * szAccount, OBJID &idAccount, char * szPassword, 
 					  DWORD &nAuthenID, char * szServerName, char* szFeeAccount, OBJID &idFeeAccount, char* szOldIP)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int nIndex = FindIndex(szAccount);		// return 0: ERROR
 	if(nIndex && m_pAccount[nIndex].m_nState)
@@ -165,7 +165,7 @@ bool	COnlineTable::GetAttr(const char * szAccount, OBJID &idAccount, char * szPa
 bool	COnlineTable::GetAttr2(OBJID idAccount, int &nFeeType, char * szServerName, 
 												OBJID &idFeeAccount, char* szFeeAccount)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int nIndex = FindIndex(idAccount);		// return 0: ERROR
 	if(nIndex && m_pAccount[nIndex].m_nState)
@@ -183,7 +183,7 @@ bool	COnlineTable::GetAttr2(OBJID idAccount, int &nFeeType, char * szServerName,
 bool	COnlineTable::AddNew(OBJID idAccount, DWORD nAuthenID, const char * pClientIP, const char * szLoginName
 			, const char * szPassword, int nPointType, const char * szServerName, OBJID	idFeeAccount, LPCTSTR szFeeAccount)			// return 0: error
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int	nFreeIndex = FindFree(idAccount);		// return 0: 溢出或已有此帐号
 	if(nFreeIndex)
@@ -276,7 +276,7 @@ bool	COnlineTable::AddNew(OBJID idAccount, DWORD nAuthenID, const char * pClient
 bool	COnlineTable::AppendNew(OBJID idAccount, DWORD nAuthenID, const char * pClientIP, const char * szLoginName
 			, const char * szPassword, int nPointType, const char * szServerName, OBJID	idFeeAccount, LPCTSTR szFeeAccount)	// return 0: error
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 //改为PUBLIC	RemoveOvertime();	//????? 当没有新玩家登录时，永远不会检查超时。超时的目的只是回收在线表资源，延迟检测关系不大。
 	int	nFreeIndex = FindFree(idAccount);		// return 0: 溢出或已有此帐号
@@ -366,7 +366,7 @@ bool	COnlineTable::AppendNew(OBJID idAccount, DWORD nAuthenID, const char * pCli
 bool	COnlineTable::Rejoin(OBJID idAccount, DWORD nAuthenID, const char * pClientIP, const char * szLoginName
 				, const char * szPassword, int nPointType, const char * szServerName, OBJID	idFeeAccount, LPCTSTR szFeeAccount)			// return 0: error
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int		nIndex = FindIndex(szLoginName);
 	ASSERT(nIndex == FindIndex(idAccount));
@@ -463,7 +463,7 @@ bool	COnlineTable::Rejoin(OBJID idAccount, DWORD nAuthenID, const char * pClient
 //?? 隐患：调用前必须在线。计点线程改为多线程时有BUG
 int  COnlineTable::StartFee(OBJID idAccount, const char* pszServerName)		// return -n: 服务器不匹配
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int nIndex = FindIndex(idAccount);		// return 0: ERROR
 	ASSERT(nIndex);
@@ -506,7 +506,7 @@ int  COnlineTable::StartFee(OBJID idAccount, const char* pszServerName)		// retu
 //?? 隐患：调用前必须在线。计点线程改为多线程时有BUG
 int  COnlineTable::EndFee(OBJID idAccount, const char* pszServerName, bool bOffline)		// return -n: 服务器不匹配
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int nIndex = FindIndex(idAccount);
 	if(!nIndex)
@@ -592,7 +592,7 @@ int  COnlineTable::EndFee(OBJID idAccount, const char* pszServerName, bool bOffl
 //?? 隐患：调用前必须在线。计点线程改为多线程时有BUG																									
 int COnlineTable::PointFee(OBJID idAccount, const char* pszServerName)		// return -n: 服务器不匹配
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int nIndex = FindIndex(idAccount);
 	if(!nIndex)
@@ -635,7 +635,7 @@ int COnlineTable::PointFee(OBJID idAccount, const char* pszServerName)		// retur
 // 检查并删除所有超时的在线表
 bool	COnlineTable::RemoveOvertime()
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	bool	ret = false;
 	for(int nIndex = 1; nIndex < ONLINETABLESIZE; nIndex++)	// 1: 0号单元保留
@@ -662,7 +662,7 @@ bool	COnlineTable::RemoveOvertime()
 
 bool	COnlineTable::GetServerName(OBJID idAccount, char* bufServer) 
 { 
-	LOCKTHREAD; 
+	LOCK_THREAD; 
 
 	int		nIndex = FindIndex(idAccount);
 	if(nIndex)
@@ -677,7 +677,7 @@ bool	COnlineTable::GetServerName(OBJID idAccount, char* bufServer)
 //? 可优化
 int	COnlineTable::GetFeeCount(OBJID idFeeAccount)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	int 	nCount = 0;
 	for(int nIndex = 1; nIndex < ONLINETABLESIZE; nIndex++)	// 1: 0号单元保留
@@ -690,7 +690,7 @@ int	COnlineTable::GetFeeCount(OBJID idFeeAccount)
 
 bool COnlineTable::CheckUniqueIP(LPCTSTR pClientIP, OBJID idAccount)
 {
-	LOCKTHREAD;
+	LOCK_THREAD;
 
 	ASSERT(!( pClientIP == 0 || *pClientIP == 0 ));
 	if(pClientIP == 0 || *pClientIP == 0)
