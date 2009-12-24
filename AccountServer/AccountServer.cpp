@@ -471,16 +471,16 @@ extern "C"
 
 int main(int argc, char *argv[])   //主线程运行结束，辅助线程也结束。
 {
-	HWND hwnd;
-	HDC hdc;
-	printf("There are some words in console window!\n在控制台窗口中绘图!\n");
-	system("Color 3D");
-	hwnd = GetConsoleWindow();
-	hdc = GetDC(hwnd);
-	LineTo(hdc, 200, 300);
-	Rectangle(hdc, 10, 30, 300, 50);
-	TextOut(hdc, 10, 10, _TEXT("Hello World\nYesNoConcel!"), 20);
-	ReleaseDC(hwnd, hdc);
+	//HWND hwnd;
+	//HDC hdc;
+	//printf("There are some words in console window!\n在控制台窗口中绘图!\n");
+	//system("Color 3D");
+	//hwnd = GetConsoleWindow();
+	//hdc = GetDC(hwnd);
+	//LineTo(hdc, 200, 300);
+	//Rectangle(hdc, 10, 30, 300, 50);
+	//TextOut(hdc, 10, 10, _TEXT("Hello World\nYesNoConcel!"), 20);
+	//ReleaseDC(hwnd, hdc);
 	OnInitDialog();
 	getch();
 	return 0;
