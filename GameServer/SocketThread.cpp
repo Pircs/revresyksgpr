@@ -1,8 +1,8 @@
+#include "MessagePort.h"
 #include "typedef.h"
 #include "I_Shell.h"
 #include "SocketThread.h"
-#include "MessagePort.h"
-#include "MsgServer.h"
+/*#include "MsgServer.h"*/
 #include "protocol.h"
 
 

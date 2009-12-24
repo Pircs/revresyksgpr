@@ -1,5 +1,5 @@
 #pragma once
-
+#include "MessagePort.h"
 #include "ThreadBase.h"
 
 //#include "typedef.h"
@@ -56,7 +56,7 @@ private:
 	long m_nLoginPlayers;
 
 protected:
-	NAMESTR		m_szServer;
+	std::string		m_szServer;
 	char m_szStartServer[20];
 
 	IMessagePort* m_pMsgPort;

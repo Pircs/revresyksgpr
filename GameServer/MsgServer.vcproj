@@ -173,10 +173,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib libmysql.lib winmm.lib"
-				OutputFile="$(SolutionDir)..\Bin\Server\GameServer\$(ProjectName)_$(ConfigurationName).exe"
+				AdditionalDependencies="commond.lib ws2_32.lib libmysql.lib winmm.lib"
+				OutputFile="$(SolutionDir)..\rpgsky\Bin\Server\GameServer\$(ProjectName)_$(ConfigurationName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="..\..\Shared\lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(TargetName).pdb"
 				SubSystem="1"

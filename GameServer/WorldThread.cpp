@@ -1,6 +1,6 @@
-#include "typedef.h"
 #include "MessagePort.h"
-#include "MsgServer.h"
+#include "typedef.h"
+/*#include "MsgServer.h"*/
 #include "I_Shell.h"
 #include "WorldThread.h"
 #include "protocol.h"

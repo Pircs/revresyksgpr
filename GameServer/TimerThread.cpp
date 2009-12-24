@@ -1,3 +1,4 @@
+#include "MessagePort.h"
 #include "typedef.h"
 #include "protocol.h"
 #include "common.h"
@@ -7,7 +8,7 @@
 #include "SocketThread.h"
 #include "WorldThread.h"
 #include "MapGroupThread.h"
-#include "MessagePort.h"
+
 #include "P_ServerManager.h"
 #include "basetype.h"
 #include "array.h"
@@ -106,7 +107,7 @@ bool CTimerThread::ProcessInterMsg()
 			{
 			case	QUERY_STATUS:
 				{
-					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_TITLE, STRING_TYPE(m_szServer), m_szServer);
+					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_TITLE, STRING_TYPE(m_szServer.c_str()), m_szServer.c_str());
 					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_SHELLMSG, STRING_TYPE(m_sShellState.c_str()), m_sShellState.c_str());
 					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_KERNELMSG, STRING_TYPE(m_sKernelState.c_str()), m_sKernelState.c_str());
 					m_pInterPort->Send(cStatus.m_nPortFrom, ACK_TEXT, STRING_TYPE(m_sText.c_str()), m_sText.c_str());
@@ -512,7 +513,7 @@ BOOL CTimerThread::OnInitDialog()
 
 	// get game title
 	CIniFile	ini("shell.ini", "AccountServer");
-	ini.GetString(m_szServer, "SERVERNAME", _MAX_NAMESIZE);
+	ini.getString(m_szServer, "SERVERNAME");
 
 	// windows title
 	//CString strTitle;
