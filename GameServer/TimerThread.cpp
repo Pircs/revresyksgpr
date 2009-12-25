@@ -557,6 +557,10 @@ void CTimerThread::PrintText(const std::string& szMsg)
 	m_sText += "\r\n";
 	m_nTextLines++;
 
+	static char szCurrTime[60];
+	FormatDateTime(szCurrTime, "[%04d-%02d-%02d %02d:%02d:%02d]: ", time(NULL));		// szFormat: 
+	std::cout<<szCurrTime<<szMsg<<endl;
+
 	LOGMSG("SHELL: %s", szMsg);
 }
 
