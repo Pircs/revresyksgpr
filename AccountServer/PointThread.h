@@ -71,8 +71,6 @@ protected:	// 变量
 	time_t	m_aHeartbeatLast[MAXGAMESERVERS];
 	time_t	m_aServerDelay[MAXGAMESERVERS];
 	CBanIP *		m_pBanIPs;
-	CRc5_321216		m_cRc5;
-
 private:	// 仅共内部使用，不能有互斥
 	bool	Kickout_0(OBJID idAccount, LPCTSTR szServerName);
 	bool	ProcessMsg(int nServerIndex,  char * pBuf, int nLen);

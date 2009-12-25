@@ -29,9 +29,6 @@ void	CPointThread::OnInit()
 {
 	LOCK_THREAD;
 	try{
-
-		m_cRc5.Rc5InitKey(RC5PASSWORD_KEY);
-
 		m_cListenSocket.Open();
 		LOGMSG("计点线程正常启动");
 	}catch(...) { LOGCATCH("计点线程初始化时异常退出");}

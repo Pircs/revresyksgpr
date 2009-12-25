@@ -350,28 +350,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="RC5_321216.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\TimerThread.cpp"
 				>
 			</File>
@@ -424,10 +402,6 @@
 			</File>
 			<File
 				RelativePath="PointThread.h"
-				>
-			</File>
-			<File
-				RelativePath="RC5_321216.h"
 				>
 			</File>
 			<File
