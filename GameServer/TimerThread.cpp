@@ -239,7 +239,7 @@ bool	CTimerThread::OnProcess()
 							"-----------------------------\n"
 							"%s"
 							"-----------------------------------------------\n", 
-							m_sShellState, m_sKernelState);
+							m_sShellState.c_str(), m_sKernelState.c_str());
 					}
 					const int nSecsPerUpdate = 5;
 					if(m_tStat.ToNextTime(nSecsPerUpdate))

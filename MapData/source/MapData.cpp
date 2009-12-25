@@ -659,21 +659,19 @@ int CMapData::GetPassage(int x, int y)
 }
 /////////////////
 // global entry/////////////////
+#include "CSVFile.h"
 IMapData* IMapData::CreateNew(int nMapDoc, LPCTSTR pszVersion/*=0*/)
 {
 	CHECKF(nMapDoc != ID_NONE);
-
-	char	szField[256];
-	sprintf(szField, "Map%d", nMapDoc);
-	CIniFile	ini("ini\\gamemap.ini", szField);
-	char	szFileName[256];
-	if(!ini.GetString(szFileName, "File", 256))
-		return NULL;
-
-	IMapData*	pObj = CMapData::CreateNew(szFileName, pszVersion);
-	if(!pObj)
-		return false;
-
-	return pObj;
+	CCsvFile csv;
+	if (csv.Open("csv/GameMap.csv"))
+	{
+		csv.Seek("ID",nMapDoc);
+		std::string strMapFile	= csv.GetStr("File");
+		IMapData*	pObj = CMapData::CreateNew(strMapFile.c_str(), pszVersion);
+		csv.Close();
+		return pObj;
+	}
+	return NULL;
 }
 
