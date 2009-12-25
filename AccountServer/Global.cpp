@@ -36,16 +36,7 @@ void	PrintText(const char * szFormat, ...)
 
 	va_end( argptr );              /* Reset variable arguments.      */
 
-	char *	pNew = strchr(s_bufText, '\n');
-	if(pNew)
-	{
-		static int	nCount = 0;
-		if(nCount < 11)
-			nCount++;
-		else
-			strcpy(s_bufText, pNew+1);
-	}
-
+	s_bufText[0]=0;
 	strcat(s_bufText, "¡¾");
 	char szCurrTime[20];
 	DateTime(szCurrTime, time(NULL));
@@ -54,6 +45,7 @@ void	PrintText(const char * szFormat, ...)
 	strcat(s_bufText, ": ");
 	strcat(s_bufText, buf);
 	strcat(s_bufText, "¡¿\r\n");
+	std::cout<<s_bufText;
 }
 
 const char* getCurrTimeString()

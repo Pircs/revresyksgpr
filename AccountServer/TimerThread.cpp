@@ -222,7 +222,7 @@ bool CTimerThread::OnProcess()
 					}
 					fprintf(fOnline, "总在线人数：%6d\n", nAmount);
 					fprintf(fOnline, ".\n");
-					fprintf(fOnline, "服务器状态：\n%s\n分时统计：\n%s\n面板消息：\n%s\n", m_sState, m_sState2, bufText);
+					fprintf(fOnline, "服务器状态：\n%s\n分时统计：\n%s\n面板消息：\n%s\n", m_sState.c_str(), m_sState2.c_str(), bufText);
 					fclose(fOnline);
 				}
 			}
@@ -246,7 +246,6 @@ bool CTimerThread::OnProcess()
 				bLogOK = true;
 				LOGMSG("帐号服务器开始允许玩家登录");
 				PrintText("允许玩家登录");
-				std::cout<<getCurrTimeString()<<"允许玩家登录"<<endl;
 			}
 
 			// 写COUNT.TXT
