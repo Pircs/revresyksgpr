@@ -6,11 +6,6 @@
 
 #include "allheads.h"
 
-void SetColor(unsigned short ForeColor=7,unsigned short BackGroundColor=0) 
-{ 
-	HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE); 
-	SetConsoleTextAttribute(hCon,ForeColor|BackGroundColor); 
-};
 #include <iostream>
 
 BOOL OnInitDialog()
@@ -25,7 +20,6 @@ BOOL OnInitDialog()
 	CreateDirectory("syslog", NULL);
 
 	InitLog(SERVERTITLE, LOGFILE, g_tStartServerTime);
-	SetColor(FOREGROUND_GREEN); 
 	LOGMSG("\n\n\n"
 		"============================================================\n"
 		"== %s Start server time is %s\n"
@@ -46,15 +40,13 @@ BOOL OnInitDialog()
 		"== %s Start server time is %s\n"
 		"============================================================\n\n",
 		SERVERTITLE, bufStart );
-	SetColor(FOREGROUND_RED,BACKGROUND_BLUE); 
+
 	LOGMSG("\n**************************************************\n"
 		"**            Account Server started            **\n"
 		"**************************************************\n");
-	SetColor(FOREGROUND_GREEN); 
 
 	if(!GetConfig())	// 装入配置文件
 	{
-		SetColor(FOREGROUND_RED); 
 		LOGERROR("无法读取config.ini文件，程序退出");
 		return true;
 	}
@@ -95,7 +87,6 @@ BOOL OnInitDialog()
 		g_xDatabase	=::CreateMutex(NULL, false, "Database");
 		if (!g_xDatabase)
 		{
-			SetColor(FOREGROUND_RED);
 			LOGERROR("无法创建数据库互斥对象，程序退出");
 			printf("Error:g_xDatabase产生失败!\n");
 			getch();
@@ -104,7 +95,6 @@ BOOL OnInitDialog()
 	}
 	else
 	{
-		SetColor(FOREGROUND_RED);
 		LOGERROR("无法打开数据库");
 		return true;
 	}
@@ -115,7 +105,6 @@ BOOL OnInitDialog()
 	IRecordset* pRes = g_db.GetInterface()->CreateNewRecordset(szSQL);	
 	if(!pRes)
 	{
-		SetColor(FOREGROUND_RED);
 		LOGERROR("不存在玩家点数表");
 		return true;
 	}
@@ -147,14 +136,12 @@ BOOL OnInitDialog()
 		err2 += !g_pTimerThread->ResumeThread();
 		if(err2)
 		{
-			SetColor(FOREGROUND_RED);
-			LOGERROR("ResumeThread()线程出错。程序无法启动");
+				LOGERROR("ResumeThread()线程出错。程序无法启动");
 			return true;
 		}
 	}
 	else
 	{
-		SetColor(FOREGROUND_RED);
 		LOGERROR("无法启动子线程，程序退出");
 		return true;
 	}

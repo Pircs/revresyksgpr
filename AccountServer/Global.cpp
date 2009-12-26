@@ -22,6 +22,7 @@ long	s_nDatabaseTimeSum = 0;
 char	s_bufText[4096] = "";
 char	s_bufState[MAXGAMESERVERS] = "";
 char	s_bufStateBackup[MAXGAMESERVERS] = "";
+#include <iostream>
 void	PrintText(const char * szFormat, ...)
 {
 	//CSingleLock xLock(&s_xCtrl, true);
