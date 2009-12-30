@@ -3582,7 +3582,7 @@ bool CUser::SendSysMsg(const char* fmt, ...)
     vsprintf( szMsg, fmt, (char*) ((&fmt)+1) );
 	
 	CMsgTalk msg;
-	if (msg.Create(SYSTEM_NAME, GetName(), szMsg, NULL, 0xff0000, _TXTATR_SYSTEM))
+	if (msg.Create(SYSTEM_NAME, GetName(), szMsg, "", 0xff0000, _TXTATR_SYSTEM))
 		return this->SendMsg(&msg);
 
 	return false;
@@ -3594,7 +3594,7 @@ bool CUser::SendSysMsg(int nChannel, const char* fmt, ...)
     vsprintf( szMsg, fmt, (char*) ((&fmt)+1) );
 	
 	CMsgTalk msg;
-	if (msg.Create(SYSTEM_NAME, GetName(), szMsg, NULL, 0x00ffff00, nChannel))
+	if (msg.Create(SYSTEM_NAME, GetName(), szMsg, "", 0x00ffff00, nChannel))
 		return this->SendMsg(&msg);
 
 	return false;

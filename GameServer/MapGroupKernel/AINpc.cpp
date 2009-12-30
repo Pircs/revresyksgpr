@@ -544,7 +544,7 @@ bool CMonster::SendSysMsg(const char* fmt, ...)
     vsprintf( szMsg, fmt, (char*) ((&fmt)+1) );
 
 	CMsgTalk msg;
-	if (msg.Create(SYSTEM_NAME, GetName(), szMsg, NULL, 0xff0000, _TXTATR_SYSTEM))
+	if (msg.Create(SYSTEM_NAME, GetName(), szMsg, "", 0xff0000, _TXTATR_SYSTEM))
 		return this->SendMsg(&msg);
 
 	return false;

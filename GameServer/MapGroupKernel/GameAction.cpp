@@ -835,7 +835,7 @@ bool CGameAction::ProcessAction(OBJID idAction, CUser* pUser, IRole* pRole, CIte
 // '%' in szMsg				this->SendSysMsg(_TXTATR_NORMAL, "ACTION: %s", szMsg);
 				szMsg[255]	= 0;
 				CMsgTalk msg;
-				if (msg.Create(SYSTEM_NAME, m_pUser->GetName(), szMsg, NULL, 0x00ffff00, _TXTATR_NORMAL))
+				if (msg.Create(SYSTEM_NAME, m_pUser->GetName(), szMsg, "", 0x00ffff00, _TXTATR_NORMAL))
 					m_pUser->SendMsg(&msg);
 			}
 
@@ -6475,7 +6475,7 @@ bool CGameAction::ProcessActionWanted(CActionData* pAction, LPCTSTR szParam, CUs
 								sprintf(szMsg, STR_WANTED_ORDER, _WANTED_ORDERCOST, id, pData->GetStr(DATA_TARGET_NAME), pData->GetInt(DATA_BOUNTY));
 
 								CMsgTalk msg;
-								if (msg.Create(SYSTEM_NAME, pUser->GetName(), szMsg, NULL, 0x00ff0000, _TXTATR_NORMAL))
+								if (msg.Create(SYSTEM_NAME, pUser->GetName(), szMsg, "", 0x00ff0000, _TXTATR_NORMAL))
 									pUser->SendMsg(&msg);
 							}
 
@@ -6489,7 +6489,7 @@ bool CGameAction::ProcessActionWanted(CActionData* pAction, LPCTSTR szParam, CUs
 									sprintf(szMsg, STR_WANTED_INFO, pMap->GetName());
 
 									CMsgTalk msg;
-									if (msg.Create(SYSTEM_NAME, pUser->GetName(), szMsg, NULL, 0x00ff0000, _TXTATR_NORMAL))
+									if (msg.Create(SYSTEM_NAME, pUser->GetName(), szMsg, "", 0x00ff0000, _TXTATR_NORMAL))
 										pUser->SendMsg(&msg);
 								}
 							}
