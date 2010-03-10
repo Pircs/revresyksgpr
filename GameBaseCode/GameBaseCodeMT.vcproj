@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Shared\Common\Include;..\DDServer\share;."
+				AdditionalIncludeDirectories="..\..\Shared\Common\Include;..\DDServer\share;D:\work\code\rpg\MySQLServer5.1\include"
 				PreprocessorDefinitions="NO_MUTEX;USE_NEW;WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
