@@ -80,7 +80,7 @@
 				OutputFile="$(SolutionDir)..\rpgsky\bin\Server\AccountServer\$(ProjectName)_$(ConfigurationName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\..\Shared\lib"
+				AdditionalLibraryDirectories="..\..\lib"
 				IgnoreDefaultLibraryNames="LIBCMTD.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(TargetName).pdb"
