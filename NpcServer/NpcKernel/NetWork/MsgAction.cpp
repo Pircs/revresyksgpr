@@ -1,6 +1,6 @@
 #include "AllMsg.h"
 #include "npcworld.h"
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 #include "agent.h"
 
 void CMsgAction::Process(OBJID idNpc)

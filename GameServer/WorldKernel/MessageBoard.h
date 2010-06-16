@@ -2,7 +2,7 @@
 
 #include "define.h"
 #include "windows.h"
-#include "basefunc.h"
+#include "SharedBaseFunc.h"
 #include <time.h>
 #include <deque>
 using namespace std;

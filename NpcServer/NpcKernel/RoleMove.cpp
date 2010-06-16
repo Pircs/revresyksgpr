@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <math.h>
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 
 #include "AllMsg.h"
 #include "define.h"

@@ -4,7 +4,7 @@
 #include "protocol.h"
 #include "windows.h"
 #include "Winuser.h"
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 #include "I_MessagePort.h"
 #include "AllMsg.h"
 #include "NetMsg.h"

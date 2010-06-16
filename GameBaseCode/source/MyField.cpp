@@ -3,7 +3,7 @@
 #include <assert.h>
 
 #include "mydb.h"
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 
 // static init
 #ifdef	MULTITHREAD_SAFE

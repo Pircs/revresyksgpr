@@ -1,6 +1,6 @@
 #pragma once
 
-#include "I_mydb.h"
+#include "..\I_mydb.h"
 #include "MyHeap.h"
 
 typedef char * HSTMT; 

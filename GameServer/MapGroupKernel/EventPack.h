@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "basefunc.h"
+#include "SharedBaseFunc.h"
 
 const int EVENTPACK_SIZE		= 1024 + 2*sizeof(USHORT) + sizeof(ULONG);
 

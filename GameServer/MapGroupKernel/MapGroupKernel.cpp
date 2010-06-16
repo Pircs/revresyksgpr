@@ -3,7 +3,7 @@
 #include "protocol.h"
 #include "MapGroupKernel.h"
 #include "NetMsg.h"
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 #include "MapGroup.h"
 #include "Npc.h"
 #include "Agent.h"

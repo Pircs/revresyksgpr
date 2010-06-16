@@ -287,4 +287,3 @@ bool	Check7DaysNodify(DWORD nPointTime, char* szNotifyMsg)		// return szNotifyMs
 	}
 	return false;
 }
-

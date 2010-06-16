@@ -5,7 +5,7 @@
 #define	AGENT_DATA_H
 
 #include "common.h"
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 
 const int		TICKS_PER_SEC			= 2;
 

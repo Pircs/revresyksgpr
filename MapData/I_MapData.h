@@ -14,7 +14,7 @@ class IMapData
 {
 public:
 	~IMapData() {}
-	static IMapData*	CreateNew(int nMapDoc, LPCTSTR pszVersion=0);
+	static IMapData*	CreateNew(int nMapDoc);
 	virtual ULONG	Release()												PURE_VIRTUAL_FUNCTION_0
 public: // modify. idTerrainItemType = NpcType*10 + Dir
 	virtual bool	AddTerrainItem(OBJID idOwner, int nCellX, int nCellY, OBJID idTerrainItemType)		PURE_VIRTUAL_FUNCTION_0

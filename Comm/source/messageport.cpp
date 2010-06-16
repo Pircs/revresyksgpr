@@ -2,7 +2,7 @@
 // œ…Ω£–ﬁ£¨2002.8.28
 
 #include "MessagePort.h"
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 #include <stdlib.h>
 
 using namespace message_port;

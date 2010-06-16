@@ -12,29 +12,11 @@ struct	CServerAccount
 	char	m_szLoginName[SERVERNAMESIZE];
 	char	m_szPassword[SERVERNAMESIZE];
 	int		m_bFree;
-	int		m_b91U;
 	CServerAccount() { 
-		m_szServerName[0] = m_szLoginName[0] = m_szPassword[0] = m_bFree = m_b91U = 0;
+		m_szServerName[0] = m_szLoginName[0] = m_szPassword[0] = m_bFree = 0;
 	}
 };
-/*
-class CServerConnect
-{
-public:
-	CServerConnect(SOCKET sock);
-	~CServerConnect();
-public:
-	Update() { m_tHeartbeat = clock(); }
-	Heartbeat() { m_tHeartbeatLast = clock(); }
-protected:
-	enum	{ STATE_NONE=0, STATE_SOCKET, STATE_LOGIN, STATE_NORMAL, STATE_BREAK };
-	int			m_state;
-	CServerSocket<POINT_KEY1, POINT_KEY2>	m_sockServer;
-	char		m_szServerName[SERVERNAMESIZE];
-	time_t		m_tHeartbeat;
-	time_t		m_tHeartbeatLast;
-};
-//*/
+
 class CPointThread : public CThreadBase  
 {
 public:		// ¹¹Ôì¡¢Îö¹¹

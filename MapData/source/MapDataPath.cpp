@@ -193,7 +193,7 @@ BOOL CMapData::AddSucNode(NodeInfo* pNode)
 		CCell* pCell = this->GetCell(pNode->nX, pNode->nY);
 		if(pCell)
 		{
-			nHeight = pCell->GetFloorAlt(m_set2Layer);
+			nHeight = pCell->GetFloorAlt();
 		}
 		
 		if(!this->CheckNode(posNewNode, nHeight))
@@ -287,7 +287,7 @@ BOOL CMapData::CheckNode(POINT posNode, int nHeight)
 		return false;
 	if(pCell->BeSearched())
 		return false;
-	if((pCell->GetFloorMask(m_set2Layer) == 0)&& abs(nHeight - pCell->GetFloorAlt(m_set2Layer)) <= 25)
+	if((pCell->GetFloorMask() == 0)&& abs(nHeight - pCell->GetFloorAlt()) <= 25)
 	{
 		pCell->SetSearchFlag(true);
 		m_setCellAStar.push_back(pCell);

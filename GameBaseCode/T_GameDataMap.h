@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Define.h"
-#include "basefunc.h"
+#include "SharedBaseFunc.h"
 #include "logfile.h"
 #include "I_mydb.h"
 #include "Myheap.h"

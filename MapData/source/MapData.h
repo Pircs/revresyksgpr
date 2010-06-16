@@ -3,7 +3,7 @@
 #include "I_MapData.h"
 #include "Cell.h"
 #include "TerrainObj.h"
-#include "T_CompactObjSet.h"
+//#include "T_CompactObjSet.h"
 #include <deque>
 using namespace std;
 //----------------------------------------------------//
@@ -44,7 +44,7 @@ class CMapData : public IMapData
 public:
 	CMapData();
 	~CMapData();
-	static CMapData* CreateNew(LPCTSTR pszFileName, LPCTSTR pszVersion);
+	static CMapData* CreateNew(LPCTSTR pszFileName);
 
 protected: // interface ////////////////////////////////////////////////////
 	ULONG	Release()	{ delete this; return 0; }
@@ -61,9 +61,9 @@ protected: // application
 	bool	FindPath(PASSPATH0* pPathBuf, int nBufSize, POINT posSource, POINT posTarget, IRoleAttr* pAttr, int nEscapeSteps = 0);
 	// nEscapeSteps == 0 : Move Forward
 protected: // cell
-	virtual int		GetFloorAttr	(int x, int y)				{ CCell* ptr=QueryCell(x,y); CHECKF(ptr); return ptr->GetFloorAttr(m_set2Layer); }
-	virtual DWORD	GetFloorMask	(int x, int y)				{ CCell* ptr=QueryCell(x,y); IF_NOT(ptr) return MASK_MASK; return ptr->GetFloorMask(m_set2Layer); }
-	virtual int		GetFloorAlt		(int x, int y)				{ CCell* ptr=QueryCell(x,y); CHECKF(ptr); return ptr->GetFloorAlt(m_set2Layer); }
+	virtual int		GetFloorAttr	(int x, int y)				{ CCell* ptr=QueryCell(x,y); CHECKF(ptr); return ptr->GetFloorAttr(); }
+	virtual DWORD	GetFloorMask	(int x, int y)				{ CCell* ptr=QueryCell(x,y); IF_NOT(ptr) return MASK_MASK; return ptr->GetFloorMask(); }
+	virtual int		GetFloorAlt		(int x, int y)				{ CCell* ptr=QueryCell(x,y); CHECKF(ptr); return ptr->GetFloorAlt(); }
 	virtual int		GetSurfaceAlt	(int x, int y)				{ CCell* ptr=QueryCell(x,y); CHECKF(ptr); return ptr->GetSurfaceAlt(); }
 	//...
 protected: // role
@@ -106,14 +106,11 @@ private: // member
 
 private:
 	SIZE			m_sizeMap;
-	typedef	CompactObjSet<CCell>	SELL_SET;
-	SELL_SET		m_setCell;
+	vector<CCell>	m_setCell;
 	DEQUE_PASSAGE	m_setPassage;
 	DEQUE_TERRAINOBJ	m_setMapObj;
-	DEQUE2_LAYER	m_set2Layer;
 
 protected: // ctrl
-	auto_long		m_bDDVersion;
 
 // for maplayer
 public:
@@ -124,7 +121,6 @@ protected: // destroy
 	void ClearCell();
 	void ClearPassage();
 	void ClearMapObj();
-	void ClearLayerSet();
 protected:
 	void AddPassage(const PassageInfo* pInfo);
 	void AddPassage(POINT posMap, int nIndex);
@@ -133,11 +129,7 @@ protected:
 	CCell* GetCell(int nIndex);
 	bool LoadSurfaceCellData(FILE* fp);
 	bool LoadDataPassage(FILE* fp);
-	bool LoadTerrainItemData(FILE* fp);
-	bool LoadPuzzle(char* pszFile);
 	bool AddMapObj(CTerrainObj* pObj);
 	bool DelMapObj(int idx);
 private:
-	bool PlaceTerrainObj(CTerrainObj* pTerrainObj);
-	bool DisplaceTerrainObj(CTerrainObj* pTerrainObj);
 };

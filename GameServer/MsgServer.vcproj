@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="MsgServer"
 	ProjectGUID="{73D7AB82-EE92-408A-967A-DDE7F409B8CD}"
+	RootNamespace="MsgServer"
 	Keyword="MFCProj"
 	>
 	<Platforms>
@@ -174,7 +175,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="commond.lib fileiod.lib ws2_32.lib libmysql.lib winmm.lib"
-				OutputFile="$(SolutionDir)..\rpgsky\Bin\Server\GameServer\$(ProjectName)_$(ConfigurationName).exe"
+				OutputFile="$(SolutionDir)..\rpgsky\Bin\Server\GameServer\$(ProjectName)D.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\lib"

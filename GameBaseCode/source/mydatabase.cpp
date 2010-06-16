@@ -4,7 +4,7 @@
 #include <time.h>
 
 #include "mydb.h"
-#include "basefunc.h"
+#include "SharedBaseFunc.h"
 #include "myrecordset.h"
 #include "myrecord.h"
 

@@ -184,11 +184,6 @@ bool	GetServerAccount()
 		LOGSERVER("Account.ini -> FREE_DEBUG = \"%d\"", m_bFree);
 #endif
 
-		g_aServerAccount[i].m_b91U		= ini.GetInt("91U_ACCOUNT");
-#ifdef	DUMP
-		LOGSERVER("Account.ini -> 91U_ACCOUNT = \"%d\"", m_b91U);
-#endif
-
 		if(g_aServerAccount[i].m_szServerName[0] == 0 || g_aServerAccount[i].m_szLoginName[0] == 0)
 			break;
 		if(strlen(g_aServerAccount[i].m_szServerName) >= SERVERNAMESIZE

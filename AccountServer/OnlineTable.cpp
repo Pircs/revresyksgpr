@@ -918,7 +918,3 @@ void	COnlineTable::LogFee(int nIndex, enum COnlineAccount::EEndType nEndType)
 			);
 	g_db.ExecuteSQL(szSQL);
 }
-
-
-
-

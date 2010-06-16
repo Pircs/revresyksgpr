@@ -1,5 +1,5 @@
 #include "MagicData.h"
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 
 MYHEAP_IMPLEMENTATION(CMagicTempData, s_heap)
 

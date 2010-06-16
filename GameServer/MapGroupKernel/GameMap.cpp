@@ -7,7 +7,7 @@
 #include "GameData.h"
 #include "I_MapData.h"
 #include "MapGroup.h"
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 #include "WeatherRegion.h"
 #include "RoleManager.h"
 #include "Array.h"
@@ -65,7 +65,7 @@ bool CGameMap::Create(PROCESS_ID idProcess, IRecordset* pRes)
 		return false;
 //*
 	LOGMSG("加载地图文件[%d]...", m_pData->GetInt(GAMEMAPDATA_MAPDOC));
-	m_pMapData	= IMapData::CreateNew(m_pData->GetInt(GAMEMAPDATA_MAPDOC), MAPDATA_VERSION);
+	m_pMapData	= IMapData::CreateNew(m_pData->GetInt(GAMEMAPDATA_MAPDOC));
 	if(!m_pMapData)
 	{
 		LOGERROR("地图文件[%d]加载失败！", m_pData->GetInt(GAMEMAPDATA_MAPDOC));
@@ -874,7 +874,7 @@ OBJID CGameMap::CreateDynaMap(PROCESS_ID idProcess, const NewMapInfo* pInfo)
 
 //*
 	LOGMSG("加载动态地图文件[%d]...", m_pData->GetInt(GAMEMAPDATA_MAPDOC));
-	m_pMapData	= IMapData::CreateNew(m_pData->GetInt(GAMEMAPDATA_MAPDOC), MAPDATA_VERSION);
+	m_pMapData	= IMapData::CreateNew(m_pData->GetInt(GAMEMAPDATA_MAPDOC));
 	if(!m_pMapData)
 	{
 		LOGERROR("动态地图文件[%d]加载失败！", m_pData->GetInt(GAMEMAPDATA_MAPDOC));

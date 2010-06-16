@@ -2,8 +2,7 @@
 
 //-------------------------------------------------------------
 // header files ...
-#include "BaseFunc.h"
-#include "Layer.h"
+#include "SharedBaseFunc.h"
 #include "MyHeap.h"
 //-------------------------------------------------------------
 
@@ -23,15 +22,11 @@ const int	ALTITUDE_LIMIT		= 32767;			// 极限高度(用于非法高度)
 class CCell
 {
 private:
-//	DEQUE_LAYER m_setLayer;
-//	bool        m_bSearched;
-	USHORT		m_idxLayer;							// <= 65534, -1: invalid
 	SHORT		m_nAlt2Mask;						// alt*2 and m_bMasked
 	UCHAR		m_nCountFlag;					// rule count and m_bSearched
 public:
-	CCell(CLayer* pLayer);
+	CCell();
 	~CCell();
-	static CCell*	CreateNew(CLayer* pLayer);
 	bool	Create(int nAlt, DWORD dwMask);
 
 	void    Destory();
@@ -39,9 +34,9 @@ public:
 public: // 
 	ULONG	Release()							{ delete this; return 0; }
 public:
-	int		GetFloorAttr(DEQUE2_LAYER& set2Layer);
-	DWORD	GetFloorMask(DEQUE2_LAYER& set2Layer);
-	int		GetFloorAlt(DEQUE2_LAYER& set2Layer);
+	int		GetFloorAttr();
+	DWORD	GetFloorMask();
+	int		GetFloorAlt();
 	int		GetSurfaceAlt();
 	void	FullMask()							{ m_nAlt2Mask |= MASK_MASK; }
 	//...
@@ -50,18 +45,8 @@ public:
 	int		GetRoleAmount()						{ return (m_nCountFlag&MASK_ROLECOUNT); }
 
 public:
-	int             GetLayerAmount(DEQUE2_LAYER& set2Layer);                                    // 得到层次数量
-	CLayer*         Getlayer(DEQUE2_LAYER& set2Layer, int nIndex);   	//★ 不能取第0层                             // 取得层次
-
-	void            AddLayer(DEQUE2_LAYER& set2Layer, CLayer* pLayer);                            // 添加层次
-	bool            DelLayer(DEQUE2_LAYER& set2Layer, int nIndex = LAYER_TOP);     //★ 不能删除第0层                         // 删除层次
-
-//	BOOL            AddLogicLayer(CLayer* pLayer, CLayer* pBaseLayer);   // 添加逻辑层次
-//	BOOL            DelLogicLayer(int nIndex);                           // 删除逻辑层次
-
 	BOOL            BeSearched(){return (m_nCountFlag&MASK_SEARCHED) != 0;}
 	void            SetSearchFlag(bool bSearched){if(bSearched) m_nCountFlag |= MASK_SEARCHED; else m_nCountFlag &= (~MASK_SEARCHED);}
-
 protected:
 	MYHEAP_DECLARATION(s_heap)
 };

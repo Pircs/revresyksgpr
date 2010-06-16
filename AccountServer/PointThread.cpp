@@ -463,8 +463,7 @@ bool	CPointThread::ProcessMsg(int nServerIndex,  char * pBuf, int nLen)
 			int		nAccount = 0;		// 在帐号表中的序号，非游戏服务器ID号。
 			for(int i = 1; i < g_nServerAccount; i++)	// 1: 从1开始。
 			{
-				if(!g_aServerAccount[i].m_b91U
-						&& strcmp(g_aServerAccount[i].m_szServerName, cMsg.m_szServer) == 0)		// 以服务器名匹配为准
+				if(strcmp(g_aServerAccount[i].m_szServerName, cMsg.m_szServer) == 0)		// 以服务器名匹配为准
 				{
 					nAccount = i;
 					break;
@@ -519,11 +518,6 @@ bool	CPointThread::ProcessMsg(int nServerIndex,  char * pBuf, int nLen)
 		break;
 	case _MSG_LOGIN:
 		{
-			if(g_aServerAccount[nServerIndex].m_b91U)
-			{
-				LOGERROR("★错误的收到_MSG_LOGIN消息★");
-				return false;
-			}
 			// 消息检查(不需要)
 
 //			CMsgConnect	cMsg;
@@ -542,12 +536,6 @@ bool	CPointThread::ProcessMsg(int nServerIndex,  char * pBuf, int nLen)
 		{
 			MsgFee&	cMsg=*(MsgFee*)pBuf;
 			OBJID	idAccount = cMsg.m_idAccount;
-
-			if(g_aServerAccount[nServerIndex].m_b91U && cMsg.m_ucType != MsgFee::HEARTBEAT)
-			{
-				LOGERROR("★错误的收到_MSG_FEE消息★");
-				return false;
-			}
 
 			switch(cMsg.m_ucType)
 			{
@@ -779,12 +767,6 @@ bool	CPointThread::ProcessMsg(int nServerIndex,  char * pBuf, int nLen)
 		break;
 	case _MSG_QUERYFEE:
 		{
-			if(g_aServerAccount[nServerIndex].m_b91U)
-			{
-				LOGERROR("★错误的收到_MSG_QUERYFEE消息★");
-				return false;
-			}
-
 			MsgQueryFee& cMsg=*(MsgQueryFee*)pBuf;
 
 			// 消息检查

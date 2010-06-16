@@ -196,28 +196,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="source\Layer.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="source\MapData.cpp"
 				>
 				<FileConfiguration
@@ -305,28 +283,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="source\TerrainObjPart.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -334,10 +290,6 @@
 			>
 			<File
 				RelativePath="source\Cell.h"
-				>
-			</File>
-			<File
-				RelativePath="source\Layer.h"
 				>
 			</File>
 			<File
@@ -349,15 +301,7 @@
 				>
 			</File>
 			<File
-				RelativePath="source\T_CompactObjSet.h"
-				>
-			</File>
-			<File
 				RelativePath="source\TerrainObj.h"
-				>
-			</File>
-			<File
-				RelativePath="source\TerrainObjPart.h"
 				>
 			</File>
 		</Filter>

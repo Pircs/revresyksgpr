@@ -77,7 +77,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="commond.lib ws2_32.lib Winmm.lib libmysql.lib"
-				OutputFile="$(SolutionDir)..\rpgsky\bin\Server\AccountServer\$(ProjectName)_$(ConfigurationName).exe"
+				OutputFile="$(SolutionDir)..\rpgsky\bin\Server\AccountServer\$(ProjectName)D.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\lib"

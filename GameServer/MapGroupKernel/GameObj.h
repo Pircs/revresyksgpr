@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 #include "define.h"
-#include "basefunc.h"
+#include "SharedBaseFunc.h"
 #include "common.h"
 
 char	szID[];

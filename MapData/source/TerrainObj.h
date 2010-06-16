@@ -1,7 +1,6 @@
 #pragma once
 
 //-------------------------------------
-#include "TerrainObjPart.h"
 #include "MapObj.h"
 //-------------------------------------
 class CTerrainObj : public CMapObj
@@ -14,22 +13,14 @@ public: // construct
 
 private:
 	OBJID			m_idOwner;
-	DEQUE_SCENEPART m_setPart;
 	char            m_szFileName[_MAX_PATH];
 
 //--------------------------------------------
 // additional 
 public:
 	OBJID	GetOwnerID() { return m_idOwner; }
-
-	int  GetPartAmount();
-	CTerrainObjPart* GetPartByIndex(int nIndex);
-
 protected:
 	void Destory();
-
-	void AddPart(CTerrainObjPart* pPart);
-	void DelPart(int nIndex);
 };
 
 #include <vector>

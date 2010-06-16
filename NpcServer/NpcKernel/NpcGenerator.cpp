@@ -1,5 +1,5 @@
 #include "NpcGenerator.h"
-#include "BaseFunc.h"
+#include "SharedBaseFunc.h"
 #include "NpcWorld.h"
 #include "AllMsg.h"
 

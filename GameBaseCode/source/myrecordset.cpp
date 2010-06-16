@@ -13,7 +13,7 @@ extern	long	s_nDatabaseTimeSum;			//?? 用于统计数据库操作所消耗的时间
 #include <time.h>
 
 #include "mydb.h"
-#include "basefunc.h"
+#include "SharedBaseFunc.h"
 #include "common.h"
 
 #ifdef	NO_MUTEX

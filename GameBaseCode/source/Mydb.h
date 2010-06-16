@@ -1,7 +1,7 @@
 #pragma once
 
 #include "mysql.h"
-#include "I_mydb.h"
+#include "..\I_mydb.h"
 
 //------ for bcb use ------
 #ifdef _BCB
