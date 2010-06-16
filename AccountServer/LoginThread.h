@@ -3,8 +3,7 @@
 // orz8 
 #pragma once
 #include "ThreadBase.h"
-#include "RC5_321216.h"
-#include "Msg.h"
+#include "LoginServerSocket.h"
 
 //enum	{ c_stateNone, c_stateError, c_stateBan };
 class CBanIP
@@ -54,22 +53,16 @@ public:
 	virtual ~CLoginThread();
 public:	// 共享
 	// 无共享函数调用，故共享成员变量无共享冲突
+	void	addBan(DWORD nClientIP, LPCTSTR szClientIP, LPCTSTR szAccount);
 protected:
 	virtual	void	OnInit();
 	virtual bool	OnProcess();
 	virtual void	OnDestroy();
 protected:	// 共享
-	CServerSocket<ACCOUNT_KEY1, ACCOUNT_KEY2>	m_aServerSocket[MAXCONNECTS];		//??
+	CLoginServerSocket	m_aServerSocket[MAXCONNECTS];		//??
 private:
 	bool	ProcessMsg(int nIndex, char * pBuf, int nLen);
-	bool	ProcessMsgClientAccount(int nIndex, MsgC2SAccount& Msg);
-	bool	ProcessMsgConnect(int nIndex, MsgConnect& Msg);
-	void	AddBan(DWORD nClientIP, LPCTSTR szClientIP, LPCTSTR szAccount);
-	void	AllowLogin(int nIndex, OBJID idAccount, DWORD nAuthenID, LPCTSTR szServer);
-	void	RefuseLogin(int nIndex, LPCTSTR szLoginName, int nType, LPCTSTR szText);
 private:
 	CListenSocket	m_cListenSocket;
 	CBanIP *		m_pBanIPs;
-	CRc5_321216		m_cRc5;
-	CRc5_321216		m_cRc5NetBar;
 };

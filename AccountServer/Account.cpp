@@ -90,20 +90,9 @@ BOOL CAccount::Create(const char* pszName, const char* pszPassword)
 
 		char bufName[256];
 		InsertBackslash(bufName, pszName);
-//		if(strchr(pszName, '\'') || strchr(pszName, '\\'))			// 单引号(')常量和反斜杠(\)常量
-		{
-//			::LogSave("ERROR: Login with illegal username [%s]. can't login.", pszName);	//★ DEBUG
-//			return false;
-		}
 
 		char bufPassword[256];
 		InsertBackslash(bufPassword, pszPassword);
-//		if(strchr(pszPassword, '\'') || (strlen(pszPassword) && pszPassword[strlen(pszPassword)-1] == '\\'))	// 单引号(')常量和反斜杠(\)常量
-//		if(strchr(pszPassword, '\'') || strchr(pszPassword, '\\'))	// 单引号(')常量和反斜杠(\)常量
-		{
-//			::LogSave("ERROR: Login with illegal password [%s]. can't login.", pszPassword);	//★ DEBUG
-//			return false;
-		}
 
 		m_pRes = new CMyRecordset(&g_db);
 		if(!m_pRes)
